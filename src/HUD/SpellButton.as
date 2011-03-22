@@ -1,0 +1,155 @@
+package HUD 
+{
+	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Graphiclist;
+	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Text;
+	import net.flashpunk.utils.Input;
+	import net.flashpunk.utils.Key;
+	
+	/**
+	 * ...
+	 * @author skipgamer
+	 */
+	public class SpellButton extends Entity 
+	{
+		// define graphics variables
+		protected var spellButtonPressed:Image;
+		protected var spellButtonEmpty:Image;
+		protected var spellButtonNormal:Image;
+		protected var spellIcon:Image;
+		
+		protected var spellButtonNumber:Text;
+		protected var spellButtonNumberInt:int;
+		
+		protected var spellGraphiclist:Graphiclist;
+		protected var spellGraphiclistPressed:Graphiclist;
+		
+		protected var spellButtonName:String; // variable to hold the name of the spell called to this entity
+		
+		protected var spellLoaded:Boolean; //set to true if a spell is loaded in this entity
+		
+		
+		public function SpellButton(spellName:String, spellNumber:int) 
+		{
+			spellButtonName = spellName;
+			spellButtonNumberInt = spellNumber;
+			
+			// set graphics for spell buttons
+			spellButtonPressed = new Image(GC.GFX_SPELL_BUTTON_PRESSED);
+			spellButtonNormal = new Image(GC.GFX_SPELL_BUTTON_NORMAL);
+			spellButtonEmpty = new Image(GC.GFX_SPELL_BUTTON_EMPTY);
+			
+			spellButtonEmpty.scale = 2;
+			spellButtonNormal.scale = 2;
+			spellButtonPressed.scale = 2;
+			// set text for spell number to passed int
+			spellButtonNumber = new Text(String(spellNumber));
+			spellButtonNumber.x = 4;
+
+			spellLoaded = false;
+			//case checks the passed string
+			switch (spellName) {
+				
+				
+				case "fireball":	//if fireball
+									//sets spell icon to fireball graphic and adds spell icon to graphiclist
+				spellIcon = new Image(GC.GFX_SPELL_ICON_FIRE); 
+				spellIcon.scale = 2;
+				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
+				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
+				spellLoaded = true;
+				trace ("fireball loaded");
+				break;
+				
+				case "arcane":		//if fireball
+									//sets spell icon to fireball graphic and adds spell icon to graphiclist
+				spellIcon = new Image(GC.GFX_SPELL_ICON_ARCANE); 
+				spellIcon.scale = 2;
+				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
+				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
+				spellLoaded = true;
+				trace ("arcane loaded");
+				break;
+				
+				case "frost":		//if fireball
+									//sets spell icon to fireball graphic and adds spell icon to graphiclist
+				spellIcon = new Image(GC.GFX_SPELL_ICON_FROST); 
+				spellIcon.scale = 2;
+				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
+				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
+				spellLoaded = true;
+				trace ("frost loaded");
+				break;
+				
+				case "death":		//if fireball
+									//sets spell icon to fireball graphic and adds spell icon to graphiclist
+				spellIcon = new Image(GC.GFX_SPELL_ICON_DEATH); 
+				spellIcon.scale = 2;
+				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
+				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
+				spellLoaded = true;
+				trace ("death loaded");
+				break;
+				
+				case "lightning":	//if fireball
+									//sets spell icon to fireball graphic and adds spell icon to graphiclist
+				spellIcon = new Image(GC.GFX_SPELL_ICON_LIGHTNING); 
+				spellIcon.scale = 2;
+				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
+				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
+				spellLoaded = true;
+				trace ("lightning loaded");
+				break;
+				
+				
+				
+				default:			//if no spell is passed
+									// sets adds empty button graphic to graphiclist
+				spellGraphiclist = new Graphiclist(spellButtonEmpty, spellButtonNumber);
+				spellLoaded = false;
+				trace ("empty loaded");
+				
+			}
+			
+			
+			
+			graphic = spellGraphiclist;
+			
+			this.x = (FP.screen.width / 9 * spellNumber - spellButtonNormal.scaledWidth);
+			this.y = (FP.screen.height - spellButtonNormal.scaledHeight*1.25);
+			
+			
+			
+			
+		}
+		
+		override public function update():void 
+		{
+			super.update();
+			if (spellLoaded == true)
+			{
+				
+				
+				if (Input.pressed(48 + spellButtonNumberInt))
+				{
+					graphic = spellGraphiclistPressed;
+					spellIcon.x -= 2;
+					spellIcon.y += 2;
+				}
+				
+				if (Input.released(48 + spellButtonNumberInt))
+				{
+					graphic = spellGraphiclist;
+					spellIcon.x += 2;
+					spellIcon.y -= 2;
+					
+				}
+			}
+		}
+		
+		
+	}
+
+}
