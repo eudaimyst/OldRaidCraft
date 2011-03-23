@@ -25,6 +25,8 @@ package HUD
 			this.world.add (new HUD.SpellButton("blahblahtest", 6));
 			this.world.add (new HUD.SpellButton("", 7));
 			this.world.add (new HUD.SpellButton("", 8));
+			
+			this.world.add (new HUD.PlayerUnitFrame());
 			super.added();
 		}
 	}

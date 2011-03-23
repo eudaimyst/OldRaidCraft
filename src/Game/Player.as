@@ -11,10 +11,15 @@ package Game
 		public var playerHealth:int;
 		public var playerMana:int;
 		
-		public function Player() 
+		public function Player()
 		{
-			playerHealth = 1000;
+			playerHealth = 800;
 			playerMana = 500;
+			
+			
+			GV.PLAYER_HEALTH_CURRENT = playerHealth;
+			GV.PLAYER_MANA_CURRENT = playerMana;
+			
 		}
 		
 	}
