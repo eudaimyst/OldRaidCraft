@@ -39,10 +39,10 @@ package HUD
 			
 			
 			playerHealth = new Text (String(GV.PLAYER_HEALTH_CURRENT)); //set player health text to global player health variable
-			playerHealth.x = playerHealthBar.width + playerHealthText.width + 5;
+			playerHealth.x = playerHealthText.x + playerHealthText.width;
 			playerHealth.y = playerHealthBar.y - 3;
 			playerMana = new Text (String(GV.PLAYER_MANA_CURRENT)); //set player mana text to global player mana variable
-			playerMana.x = playerManaBar.width + playerManaText.width + 5;
+			playerMana.x = playerManaText.x + playerManaText.width + 5;
 			playerMana.y = playerManaBar.y - 3;
 			
 			
@@ -60,8 +60,10 @@ package HUD
 			if (playerHealth.text != String(GV.PLAYER_HEALTH_CURRENT)) //if the player health has changed
 			{
 				playerHealth = new Text (String(GV.PLAYER_HEALTH_CURRENT)); //update player health text
-				playerHealth.x = playerHealthBar.width + playerHealthText.width + 5; //player health location needs to be set again
+				playerHealth.x = playerHealthText.x + playerHealthText.width ; //player health location needs to be set again
 				playerHealth.y = playerHealthBar.y - 3;
+				
+				playerHealthBar = new Image (new BitmapData(120*GV.PLAYER_HEALTH_CURRENT/GV.PLAYER_HEALTH_MAX, 20, false, 0xcc2222)); //update health bar graphic
 				
 				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
 				graphic = unitFrameGraphicList; //draw graphics
