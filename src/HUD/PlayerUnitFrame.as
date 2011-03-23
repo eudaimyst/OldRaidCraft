@@ -68,6 +68,19 @@ package HUD
 				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
 				graphic = unitFrameGraphicList; //draw graphics
 			}
+			
+			if (playerMana.text != String(GV.PLAYER_MANA_CURRENT)) //if the player health has changed
+			{
+				playerMana = new Text (String(GV.PLAYER_MANA_CURRENT)); //update player health text
+				playerMana.x = playerManaText.x + playerManaText.width ; //player health location needs to be set again
+				playerMana.y = playerManaBar.y - 3;
+				
+				playerManaBar = new Image (new BitmapData(120 * GV.PLAYER_MANA_CURRENT / GV.PLAYER_MANA_MAX, 20, false, 0x2222cc)); //update health bar graphic
+				playerManaBar.y = 25;
+				
+				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
+				graphic = unitFrameGraphicList; //draw graphics
+			}
 			super.update();
 		}
 	}

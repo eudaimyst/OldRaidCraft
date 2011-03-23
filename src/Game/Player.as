@@ -22,44 +22,54 @@ package Game
 		public function Player()
 		{
 			playerDead = false;
-			playerMaxHealth = 800;
-			playerMaxMana = 800;
-			playerCurrentHealth = 800;
+			playerMaxHealth = 1000;
+			playerMaxMana = 500;
+			playerCurrentHealth = 1000;
 			playerCurrentMana = 500;
 			
-			GV.PLAYER_HEALTH_MAX = playerMaxHealth;
-			GV.PLAYER_MANA_MAX = playerMaxMana;
-			GV.PLAYER_HEALTH_CURRENT = playerCurrentHealth;
-			GV.PLAYER_MANA_CURRENT = playerCurrentMana;
+			UpdateHealth();
 			
 		}
 		
-		public function UpdateHealth():void
+		public function UpdateHealth():void //function to update the player health and mana (converts numbers to ints and stores in GV)
 		{
-			GV.PLAYER_HEALTH_MAX = int(playerMaxHealth);
-			GV.PLAYER_MANA_MAX = int(playerMaxMana);
 			GV.PLAYER_HEALTH_CURRENT = int(playerCurrentHealth);
+			GV.PLAYER_HEALTH_MAX = int(playerMaxHealth);
 			GV.PLAYER_MANA_CURRENT = int(playerCurrentMana);
+			GV.PLAYER_MANA_MAX = int(playerMaxMana);
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			if (GV.PLAYER_HEALTH_CURRENT < GV.PLAYER_HEALTH_MAX)
+			if (GV.PLAYER_HEALTH_CURRENT < GV.PLAYER_HEALTH_MAX) //if health is less than the maximum, regenerate
 			{
 				playerCurrentHealth += .2;
 				UpdateHealth();
 			}
 			
+			if (GV.PLAYER_MANA_CURRENT < GV.PLAYER_MANA_MAX) //if mana is less than the maximum, regenerate
+			{
+				playerCurrentMana += .1;
+				UpdateHealth();
+			}
 			
-			if (Input.pressed(Key.DIGIT_1))
+			
+			if (Input.pressed(Key.DIGIT_1)) //if key1 is pressed, remove some health (testing)
 			{
 				playerCurrentHealth -= 20;
 				trace (playerCurrentHealth);
 				UpdateHealth();
 			}
 			
-			if (playerCurrentHealth <= 0) {
+			if (Input.pressed(Key.DIGIT_2)) //if key2 is pressed, remove some mana (testing)
+			{
+				playerCurrentMana -= 20;
+				trace (playerCurrentMana);
+				UpdateHealth();
+			}
+			
+			if (playerCurrentHealth <= 0) { //if players health is less than or equal to 0, dead
 				if (playerDead == false)
 				{
 					this.world.add (new MenuButton("you died", -1));
