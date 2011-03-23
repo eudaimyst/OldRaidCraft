@@ -25,40 +25,47 @@ package HUD
 		
 		public function PlayerUnitFrame() 
 		{
-			playerHealthBar = new Image (new BitmapData(120, 20, false, 0xcc2222));
+			playerHealthBar = new Image (new BitmapData(120, 20, false, 0xcc2222)); //set player health bar graphic
 			
-			playerManaBar = new Image (new BitmapData(120, 20, false, 0x2222cc));
+			playerManaBar = new Image (new BitmapData(120, 20, false, 0x2222cc)); //set player mana bar graphic
 			playerManaBar.y = 25;
 			
-			playerHealthText = new Text ("HP:");
+			playerHealthText = new Text ("HP:"); //set player health bar text
 			playerHealthText.x = playerHealthBar.width + 5;
 			playerHealthText.y = playerHealthBar.y - 3;
-			playerManaText = new Text ("MP:");
+			playerManaText = new Text ("MP:"); //set player mana bar text
 			playerManaText.x = playerManaBar.width + 5;
 			playerManaText.y = playerManaBar.y - 3;
 			
 			
-			playerHealth = new Text (String(GV.PLAYER_HEALTH_CURRENT));
+			playerHealth = new Text (String(GV.PLAYER_HEALTH_CURRENT)); //set player health text to global player health variable
 			playerHealth.x = playerHealthBar.width + playerHealthText.width + 5;
 			playerHealth.y = playerHealthBar.y - 3;
-			playerMana = new Text (String(GV.PLAYER_MANA_CURRENT));
+			playerMana = new Text (String(GV.PLAYER_MANA_CURRENT)); //set player mana text to global player mana variable
 			playerMana.x = playerManaBar.width + playerManaText.width + 5;
 			playerMana.y = playerManaBar.y - 3;
 			
 			
-			unitFrameGraphicList = new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana)
+			unitFrameGraphicList = new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
 			
-			graphic = unitFrameGraphicList;
+			graphic = unitFrameGraphicList; //draw graphics
 			
-			this.x = 10;
+			this.x = 10; //set co-ordinates of unit frame
 			this.y = 345;
-			
-			GV.PLAYER_HEALTH_CURRENT;
 			
 		}
 		
 		override public function update():void 
 		{
+			if (playerHealth.text != String(GV.PLAYER_HEALTH_CURRENT)) //if the player health has changed
+			{
+				playerHealth = new Text (String(GV.PLAYER_HEALTH_CURRENT)); //update player health text
+				playerHealth.x = playerHealthBar.width + playerHealthText.width + 5; //player health location needs to be set again
+				playerHealth.y = playerHealthBar.y - 3;
+				
+				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
+				graphic = unitFrameGraphicList; //draw graphics
+			}
 			super.update();
 		}
 	}
