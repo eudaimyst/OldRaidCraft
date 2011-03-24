@@ -63,8 +63,42 @@ package HUD
 			this.type = GC.TYPE_SPELL_BUTTON;
 			
 			
+			SetSpell(spellName); //calls the SetSpell function to set a spell graphic for this entity, if a spell is passed to this entity when this entity is added
+			
+			
+			
+			
+			
+			if (spellNumber != 0) // if the spell number passed to this entity is not zero (ie, this IS an action bar spell)
+			{
+				isActionBarButton = true;
+				this.x = (FP.screen.width / 9 * spellNumber - spellButtonNormal.scaledWidth); //set location of this entity to the action bar area
+				this.y = (FP.screen.height - spellButtonNormal.scaledHeight * 1.25);
+			}
+			else // if the spell number is 0 (this is a spell select spell)
+			{
+				isActionBarButton = false;
+				this.x = (FP.screen.width / 14 + FP.screen.width / 8 * gridLocX); //set location of this entity to the spell select area
+				this.y = (FP.screen.height / 6 * gridLocY);
+				spellGraphiclist.remove (spellButtonNumber); //remove the 
+			}
+			
+			
+			graphic = spellGraphiclist;
+			
+			if (spellName == "")
+			{
+				this.type = GC.TYPE_SPELL_BUTTON_EMPTY;
+				spellLoaded = false;
+				trace ("empty loaded");
+			}
+			
+		}
+		
+		public function SetSpell(spellName2:String):void //this function will set the spell graphic
+		{
 			//case checks the passed string
-			switch (spellName) {
+			switch (spellName2) {
 				
 				
 				case "fireball":	//if fireball
@@ -113,44 +147,12 @@ package HUD
 				trace ("lightning loaded");
 				break;
 				
-				
-				
 				default:			//if no spell is passed
 									// sets adds empty button graphic to graphiclist
 				spellGraphiclist = new Graphiclist(spellButtonEmpty, spellButtonNumber);
-				spellLoaded = false;
-				trace ("empty loaded");
-				this.type = GC.TYPE_SPELL_BUTTON_EMPTY;
 				
+				return;
 			}
-			
-			
-			
-			
-			if (spellNumber != 0) // if the spell number passed to this entity is not zero (ie, this IS an action bar spell)
-			{
-				isActionBarButton = true;
-				this.x = (FP.screen.width / 9 * spellNumber - spellButtonNormal.scaledWidth);
-				this.y = (FP.screen.height - spellButtonNormal.scaledHeight * 1.25);
-			}
-			else // if the spell number is 0 (this is a spell select spell)
-			{
-				isActionBarButton = false;
-				this.x = (FP.screen.width / 14 + FP.screen.width / 8 * gridLocX);
-				this.y = (FP.screen.height / 6 * gridLocY);
-				spellGraphiclist.remove (spellButtonNumber);
-			}
-			
-			
-			graphic = spellGraphiclist;
-			
-			
-			
-		}
-		
-		public function GetSpellNumber():int
-		{
-			return (spellButtonNumberInt);
 		}
 		
 		override public function update():void
