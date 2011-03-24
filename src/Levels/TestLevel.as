@@ -21,12 +21,18 @@ package Levels
 			
 			add (new HUD());
 			
-			add (new MouseCursorEntity());
+
 			
 			add (new Player());
 			
 			
 			
+		}
+		
+		override public function begin():void 
+		{
+			add (new MouseCursorEntity());
+			super.begin();
 		}
 		
 		override public function update():void 

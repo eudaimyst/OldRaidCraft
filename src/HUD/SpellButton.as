@@ -31,7 +31,7 @@ package HUD
 		protected var spellLoaded:Boolean; //set to true if a spell is loaded in this entity
 		
 		
-		public function SpellButton(spellName:String, spellNumber:int) 
+		public function SpellButton(spellName:String, spellNumber:int, gridLocX:int, gridLocY:int) 
 		{
 			spellButtonName = spellName;
 			spellButtonNumberInt = spellNumber;
@@ -115,13 +115,20 @@ package HUD
 			
 			
 			
+			
+			if (spellNumber != 0) // if the spell number passed to this entity is not zero (ie, this IS an action bar spell)
+			{
+				this.x = (FP.screen.width / 9 * spellNumber - spellButtonNormal.scaledWidth);
+				this.y = (FP.screen.height - spellButtonNormal.scaledHeight * 1.25);
+			}
+			else // if the spell number is 0 (this is a spell select spell)
+			{
+				this.x = (FP.screen.width / 14 + FP.screen.width / 8 * gridLocX);
+				this.y = (FP.screen.height / 6 * gridLocY);
+				spellGraphiclist.remove (spellButtonNumber);
+			}
+			
 			graphic = spellGraphiclist;
-			
-			this.x = (FP.screen.width / 9 * spellNumber - spellButtonNormal.scaledWidth);
-			this.y = (FP.screen.height - spellButtonNormal.scaledHeight*1.25);
-			
-			
-			
 			
 		}
 		
