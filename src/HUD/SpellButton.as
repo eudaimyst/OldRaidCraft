@@ -31,6 +31,10 @@ package HUD
 		
 		protected var spellLoaded:Boolean; //set to true if a spell is loaded in this entity
 		
+		protected var isActionBarButton:Boolean; //set to true if this entity is in the actionbar, false if it's in spellselect screen
+		
+		protected var buttonClicked:Boolean; //set to true if button is clicked
+		
 		
 		public function SpellButton(spellName:String, spellNumber:int, gridLocX:int, gridLocY:int) 
 		{
@@ -122,11 +126,13 @@ package HUD
 			
 			if (spellNumber != 0) // if the spell number passed to this entity is not zero (ie, this IS an action bar spell)
 			{
+				isActionBarButton = true;
 				this.x = (FP.screen.width / 9 * spellNumber - spellButtonNormal.scaledWidth);
 				this.y = (FP.screen.height - spellButtonNormal.scaledHeight * 1.25);
 			}
 			else // if the spell number is 0 (this is a spell select spell)
 			{
+				isActionBarButton = false;
 				this.x = (FP.screen.width / 14 + FP.screen.width / 8 * gridLocX);
 				this.y = (FP.screen.height / 6 * gridLocY);
 				spellGraphiclist.remove (spellButtonNumber);
@@ -146,10 +152,30 @@ package HUD
 
 			if (spellLoaded == true) //if this entity has a spell loaded
 			{
-				
 				if (this.collide(GC.TYPE_MOUSE, x, y)) //if mouse is over this entity
 				{
-					trace(String(spellButtonNumberInt));
+					if (isActionBarButton == true) //if this button is on the actionbar
+					{
+						if (Input.mousePressed)
+						{
+							trace(String(isActionBarButton));
+						}
+						
+					}
+					if (isActionBarButton == false) //if it's on the spell select screen
+					{
+						if (Input.mouseDown)
+						{
+							trace(String(isActionBarButton));
+							buttonClicked = true;
+						}
+					}
+				}
+				
+				if (buttonClicked == true)
+				{
+					this.x = (Input.mouseX);
+					this.y = (Input.mouseY);
 				}
 				
 				
