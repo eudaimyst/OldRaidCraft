@@ -10,11 +10,12 @@ package
 	{
 		
 		//Text
-		public static const TEXT_GAME_NAME:String = "RaidCraft"
-		public static const TEXT_GAME_VERSION:String = "Version 0.01"
-		public static const TEXT_PLAY_BUTTON:String = "Play Game"
-		public static const TEXT_OPTIONS_BUTTON:String = "Options"
-		public static const TEXT_EXIT_BUTTON:String = "Exit"
+		public static const TEXT_GAME_NAME:String = "RaidCraft";
+		public static const TEXT_GAME_VERSION:String = "Version 0.01";
+		public static const TEXT_PLAY_BUTTON:String = "Play Game";
+		public static const TEXT_OPTIONS_BUTTON:String = "Options";
+		public static const TEXT_EXIT_BUTTON:String = "Exit";
+		public static const TEXT_DONE_SPELL_SELECT:String = "Done";
 		
 		//Types
 		public static const TYPE_MOUSE:String = "mouse collision";

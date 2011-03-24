@@ -7,6 +7,7 @@ package HUD
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	import net.flashpunk.FP;
 	
 	/**
 	 * ...
@@ -49,6 +50,9 @@ package HUD
 			spellButtonNumber.x = 4;
 
 			spellLoaded = false;
+			
+			this.setHitbox (spellButtonNormal.scaledWidth, spellButtonNormal.scaledHeight);
+			
 			//case checks the passed string
 			switch (spellName) {
 				
@@ -128,25 +132,35 @@ package HUD
 				spellGraphiclist.remove (spellButtonNumber);
 			}
 			
+			
 			graphic = spellGraphiclist;
+			
+			
 			
 		}
 		
 		override public function update():void 
 		{
+			
 			super.update();
-			if (spellLoaded == true)
+
+			if (spellLoaded == true) //if this entity has a spell loaded
 			{
 				
+				if (this.collide(GC.TYPE_MOUSE, x, y)) //if mouse is over this entity
+				{
+					trace(String(spellButtonNumberInt));
+				}
 				
-				if (Input.pressed(48 + spellButtonNumberInt))
+				
+				if (Input.pressed(48 + spellButtonNumberInt)) //if they spellNumber passed to this entity is pressed
 				{
 					graphic = spellGraphiclistPressed;
 					spellIcon.x -= 2;
 					spellIcon.y += 2;
 				}
 				
-				if (Input.released(48 + spellButtonNumberInt))
+				if (Input.released(48 + spellButtonNumberInt)) //if it's released
 				{
 					graphic = spellGraphiclist;
 					spellIcon.x += 2;

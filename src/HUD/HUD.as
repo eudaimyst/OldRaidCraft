@@ -24,21 +24,7 @@ package HUD
 			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_5, 5,0,0));
 			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_6, 6,0,0));
 			
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 1, 1));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 2, 1));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 3, 1));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 4, 1));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 5, 1));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 1, 2));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 2, 2));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 3, 2));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 4, 2));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 5, 2));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 1, 3));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 2, 3));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 3, 3));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 4, 3));
-			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 0, 5, 3));
+
 			
 			this.world.add (new HUD.PlayerUnitFrame());
 			super.added();

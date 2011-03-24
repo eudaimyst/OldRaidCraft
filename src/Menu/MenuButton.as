@@ -74,8 +74,9 @@ package Menu
 				{
 					trace(String(menuOption));
 					//this is where the magic happens, check if the menu option text for this entity is equal to the GC variable, then do it.
-					if (menuOption == GC.TEXT_PLAY_BUTTON) FP.world = new TestLevel; 
+					if (menuOption == GC.TEXT_PLAY_BUTTON) FP.world = new SpellSelect; 
 					if (menuOption == GC.TEXT_OPTIONS_BUTTON) FP.world.add (new OptionsMenu())
+					if (menuOption == GC.TEXT_DONE_SPELL_SELECT) FP.world = new TestLevel;
 					trace (this.world);
 				}
 			}
