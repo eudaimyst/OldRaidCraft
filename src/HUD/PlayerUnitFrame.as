@@ -25,9 +25,10 @@ package HUD
 		
 		public function PlayerUnitFrame() 
 		{
-			playerHealthBar = new Image (new BitmapData(120, 20, false, 0xcc2222)); //set player health bar graphic
+			playerHealthBar = Image.createRect(120, 20, 0xcc2222); //set player health bar graphic
 			
-			playerManaBar = new Image (new BitmapData(120, 20, false, 0x2222cc)); //set player mana bar graphic
+			playerManaBar = Image.createRect(120, 20, 0x2222cc); //set player mana bar graphic
+			
 			playerManaBar.y = 25;
 			
 			playerHealthText = new Text ("HP:"); //set player health bar text
@@ -63,19 +64,19 @@ package HUD
 				playerHealth.x = playerHealthText.x + playerHealthText.width ; //player health location needs to be set again
 				playerHealth.y = playerHealthBar.y - 3;
 				
-				playerHealthBar = new Image (new BitmapData(120*GV.PLAYER_HEALTH_CURRENT/GV.PLAYER_HEALTH_MAX, 20, false, 0xcc2222)); //update health bar graphic
+				playerHealthBar.scaleX = GV.PLAYER_HEALTH_CURRENT / GV.PLAYER_HEALTH_MAX;
 				
 				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
 				graphic = unitFrameGraphicList; //draw graphics
 			}
 			
-			if (playerMana.text != String(GV.PLAYER_MANA_CURRENT)) //if the player health has changed
+			if (playerMana.text != String(GV.PLAYER_MANA_CURRENT)) //if the player mana has changed
 			{
-				playerMana = new Text (String(GV.PLAYER_MANA_CURRENT)); //update player health text
-				playerMana.x = playerManaText.x + playerManaText.width ; //player health location needs to be set again
+				playerMana = new Text (String(GV.PLAYER_MANA_CURRENT)); //update player mana text
+				playerMana.x = playerManaText.x + playerManaText.width ; //player mana location needs to be set again
 				playerMana.y = playerManaBar.y - 3;
 				
-				playerManaBar = new Image (new BitmapData(120 * GV.PLAYER_MANA_CURRENT / GV.PLAYER_MANA_MAX, 20, false, 0x2222cc)); //update health bar graphic
+				playerManaBar.scaleX = GV.PLAYER_MANA_CURRENT / GV.PLAYER_MANA_MAX;
 				playerManaBar.y = 25;
 				
 				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw

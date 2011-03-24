@@ -17,14 +17,14 @@ package HUD
 		}
 		override public function added():void 
 		{
-			this.world.add (new HUD.SpellButton("fireball", 1));
-			this.world.add (new HUD.SpellButton("arcane", 2));
-			this.world.add (new HUD.SpellButton("frost", 3));
-			this.world.add (new HUD.SpellButton("lightning", 4));
-			this.world.add (new HUD.SpellButton("death", 5));
-			this.world.add (new HUD.SpellButton("blahblahtest", 6));
-			this.world.add (new HUD.SpellButton("", 7));
-			this.world.add (new HUD.SpellButton("", 8));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_1, 1));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_2, 2));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_3, 3));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_4, 4));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_5, 5));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_6, 6));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_7, 7));
+			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_8, 8));
 			
 			this.world.add (new HUD.PlayerUnitFrame());
 			super.added();
