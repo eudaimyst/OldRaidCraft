@@ -22,7 +22,7 @@ package HUD
 		protected var spellIcon:Image;
 		
 		protected var spellButtonNumber:Text;
-		protected var spellButtonNumberInt:int;
+		public var spellButtonNumberInt:int;
 		
 		protected var spellGraphiclist:Graphiclist;
 		protected var spellGraphiclistPressed:Graphiclist;
@@ -40,7 +40,7 @@ package HUD
 		private var buttonPosX:Number; //used for storing position of button on mouse press to move it back if no collision
 		private var buttonPosY:Number;
 		
-		public function SpellButton(spellName:String, spellNumber:int, gridLocX:int, gridLocY:int) 
+		public function SpellButton(spellName:String, spellNumber:int, gridLocX:int, gridLocY:int)
 		{
 			spellButtonName = spellName;
 			spellButtonNumberInt = spellNumber;
@@ -58,8 +58,9 @@ package HUD
 			spellButtonNumber.x = 4;
 			
 			spellLoaded = true;
-			this.type = GC.TYPE_SPELL_BUTTON;
+			
 			this.setHitbox (spellButtonNormal.scaledWidth, spellButtonNormal.scaledHeight);
+			this.type = GC.TYPE_SPELL_BUTTON;
 			
 			
 			//case checks the passed string
@@ -73,6 +74,7 @@ package HUD
 				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
 				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
 				trace ("fireball loaded");
+				
 				break;
 				
 				case "arcane":		//if fireball
@@ -146,7 +148,12 @@ package HUD
 			
 		}
 		
-		override public function update():void 
+		public function GetSpellNumber():int
+		{
+			return (spellButtonNumberInt);
+		}
+		
+		override public function update():void
 		{
 			
 			super.update();
@@ -192,20 +199,31 @@ package HUD
 					
 					if (Input.mouseReleased) 
 					{
-						var e:Entity = collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y)
+						var e:Entity = collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y) // if, on mouse release, this entity is colliding with an empty button
 						if (e)
 						{
 							trace("colliding with empty button");
-							this.x = e.x;
+							this.x = e.x; //move this entity to the empty buttons location
 							this.y = e.y;
+							trace (e);
+							
 						}
 						else
 						{
 							trace("colliding with nothing");
+							this.x = buttonPosX; //if it's colliding with nothing, move this entity to it's original location (when the mouse was last pressed)
+							this.y = buttonPosY;
+						}
+						var f:Entity = collide(GC.TYPE_SPELL_BUTTON, x, y) //if, on mouse release this entity is colliding with a non empty button
+						if (f)
+						{
+							trace("colliding with non-empty button");
 							this.x = buttonPosX;
 							this.y = buttonPosY;
 						}
 						buttonClicked = false; // if mouse was released, set to false so this entity no longer moves with the mouse
+						
+
 						
 					}
 				}
