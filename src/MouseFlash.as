@@ -23,6 +23,7 @@ package
 			mouseFlash.scale = 2;
 			mouseFlash.x = Input.mouseX - mouseFlash.scaledWidth / 2;
 			mouseFlash.y = Input.mouseY - mouseFlash.scaledHeight / 2;
+			this.layer = -101;
 			
 		}
 		

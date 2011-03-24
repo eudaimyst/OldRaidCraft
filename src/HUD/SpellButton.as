@@ -35,6 +35,8 @@ package HUD
 		
 		protected var buttonClicked:Boolean; //set to true if button is clicked
 		
+		private var mbdX:Number; //used for calculating the difference between mouse and button location when dragging
+		private var mbdY:Number;
 		
 		public function SpellButton(spellName:String, spellNumber:int, gridLocX:int, gridLocY:int) 
 		{
@@ -52,10 +54,11 @@ package HUD
 			// set text for spell number to passed int
 			spellButtonNumber = new Text(String(spellNumber));
 			spellButtonNumber.x = 4;
-
-			spellLoaded = false;
 			
+			spellLoaded = true;
+			this.type = GC.TYPE_SPELL_BUTTON;
 			this.setHitbox (spellButtonNormal.scaledWidth, spellButtonNormal.scaledHeight);
+			
 			
 			//case checks the passed string
 			switch (spellName) {
@@ -67,7 +70,6 @@ package HUD
 				spellIcon.scale = 2;
 				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
 				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
-				spellLoaded = true;
 				trace ("fireball loaded");
 				break;
 				
@@ -77,7 +79,6 @@ package HUD
 				spellIcon.scale = 2;
 				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
 				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
-				spellLoaded = true;
 				trace ("arcane loaded");
 				break;
 				
@@ -87,7 +88,6 @@ package HUD
 				spellIcon.scale = 2;
 				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
 				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
-				spellLoaded = true;
 				trace ("frost loaded");
 				break;
 				
@@ -97,7 +97,6 @@ package HUD
 				spellIcon.scale = 2;
 				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
 				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
-				spellLoaded = true;
 				trace ("death loaded");
 				break;
 				
@@ -107,7 +106,6 @@ package HUD
 				spellIcon.scale = 2;
 				spellGraphiclist = new Graphiclist(spellButtonNormal, spellIcon, spellButtonNumber);
 				spellGraphiclistPressed = new Graphiclist(spellButtonPressed, spellIcon, spellButtonNumber);
-				spellLoaded = true;
 				trace ("lightning loaded");
 				break;
 				
@@ -118,6 +116,7 @@ package HUD
 				spellGraphiclist = new Graphiclist(spellButtonEmpty, spellButtonNumber);
 				spellLoaded = false;
 				trace ("empty loaded");
+				this.type = GC.TYPE_SPELL_BUTTON_EMPTY;
 				
 			}
 			
@@ -152,6 +151,9 @@ package HUD
 
 			if (spellLoaded == true) //if this entity has a spell loaded
 			{
+				
+
+				
 				if (this.collide(GC.TYPE_MOUSE, x, y)) //if mouse is over this entity
 				{
 					if (isActionBarButton == true) //if this button is on the actionbar
@@ -164,9 +166,11 @@ package HUD
 					}
 					if (isActionBarButton == false) //if it's on the spell select screen
 					{
-						if (Input.mouseDown)
+						if (Input.mousePressed)
 						{
-							trace(String(isActionBarButton));
+							mbdX = Input.mouseX - this.x;
+							mbdY = Input.mouseY - this.y;
+							trace(String(mbdX));
 							buttonClicked = true;
 						}
 					}
@@ -174,8 +178,19 @@ package HUD
 				
 				if (buttonClicked == true)
 				{
-					this.x = (Input.mouseX);
-					this.y = (Input.mouseY);
+					this.x = (Input.mouseX) - mbdX;
+					this.y = (Input.mouseY) - mbdY;
+					this.layer = -1;
+					
+					if (this.collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y))
+					{
+						trace("colliding with empty button");
+					}
+					
+					if (Input.mouseReleased)
+					{
+						buttonClicked = false;
+					}
 				}
 				
 				

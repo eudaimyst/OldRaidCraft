@@ -32,8 +32,9 @@ package
 			type = GC.TYPE_MOUSE;
 			
 			
-			Image(this.graphic).scaleX = 1;
-			Image(this.graphic).scaleY = 1;
+			Image(this.graphic).scaleX = 2;
+			Image(this.graphic).scaleY = 2;
+			this.layer = -100;
 			
 		}
 		
