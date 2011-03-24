@@ -37,6 +37,8 @@ package HUD
 		
 		private var mbdX:Number; //used for calculating the difference between mouse and button location when dragging
 		private var mbdY:Number;
+		private var buttonPosX:Number; //used for storing position of button on mouse press to move it back if no collision
+		private var buttonPosY:Number;
 		
 		public function SpellButton(spellName:String, spellNumber:int, gridLocX:int, gridLocY:int) 
 		{
@@ -158,38 +160,53 @@ package HUD
 				{
 					if (isActionBarButton == true) //if this button is on the actionbar
 					{
-						if (Input.mousePressed)
+						if (Input.mousePressed) //if mouse is pressed
 						{
-							trace(String(isActionBarButton));
+							
+							trace(String(isActionBarButton)); //trace if this entity is an actionbar button (testing)
 						}
 						
 					}
 					if (isActionBarButton == false) //if it's on the spell select screen
 					{
-						if (Input.mousePressed)
+						if (Input.mousePressed) //if mouse is pressed on this frame
 						{
-							mbdX = Input.mouseX - this.x;
+							buttonPosX = this.x;
+							buttonPosY = this.y;
+							mbdX = Input.mouseX - this.x; //calculates the difference between where the mouse is and the button
 							mbdY = Input.mouseY - this.y;
-							trace(String(mbdX));
-							buttonClicked = true;
+							trace(String(mbdX)); //trace this value (testing)
+							buttonClicked = true; //get to true, for later checking
 						}
 					}
 				}
 				
-				if (buttonClicked == true)
+				if (buttonClicked == true) //if mouse was pressed and hasn't been released
 				{
-					this.x = (Input.mouseX) - mbdX;
+					this.x = (Input.mouseX) - mbdX; // this entity location = the position of the mouse minus this value (the offset between the mouse and button when mouse was pressed)
 					this.y = (Input.mouseY) - mbdY;
-					this.layer = -1;
+					this.layer = -1; //set to infront of other entities
 					
-					if (this.collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y))
-					{
-						trace("colliding with empty button");
-					}
 					
-					if (Input.mouseReleased)
+					
+					
+					if (Input.mouseReleased) 
 					{
-						buttonClicked = false;
+						var e:Entity = collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y)
+						if (e)
+						{
+							trace("colliding with empty button");
+							this.x = e.x;
+							this.y = e.y;
+						}
+						else
+						{
+							trace("colliding with nothing");
+							this.x = buttonPosX;
+							this.y = buttonPosY;
+						}
+						buttonClicked = false; // if mouse was released, set to false so this entity no longer moves with the mouse
+						
 					}
 				}
 				
