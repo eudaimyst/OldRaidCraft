@@ -2,6 +2,7 @@ package Game
 {
 	import Menu.MenuButton;
 	import net.flashpunk.Entity;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.FP
@@ -18,6 +19,7 @@ package Game
 		protected var playerMaxHealth:Number;
 		protected var playerMaxMana:Number;
 		protected var playerDead:Boolean;
+		protected var playerImage:Image;
 		
 		public function Player()
 		{
@@ -28,6 +30,14 @@ package Game
 			playerCurrentMana = 500;
 			
 			UpdateHealth();
+			
+			playerImage = new Image(GC.GFX_PLAYER);
+			playerImage.scale = 2;
+			graphic = playerImage;
+			this.x = FP.screen.width / 2 - playerImage.width / 2;
+			this.y = FP.screen.height - FP.screen.height / 3;
+			
+			
 			
 		}
 		

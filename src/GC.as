@@ -27,6 +27,9 @@ package
 		[Embed(source = '../assets/raidcraft_title.png')]
 		public static const GFX_TITLE:Class;
 		
+		[Embed(source = '../assets/player.png')]
+		public static const GFX_PLAYER:Class;
+		
 		// mouse icon
 		
 		[Embed(source = '../assets/mouse_cursor.png')]
