@@ -6,6 +6,7 @@ package Game
 	import net.flashpunk.FP;
 	import flash.display.BitmapData;
 	import net.flashpunk.graphics.Text;
+	import net.flashpunk.World;
 	
 	/**
 	 * ...
@@ -24,14 +25,13 @@ package Game
 		
 		public function SpellCast(spellcastName:String)
 		{
-			
 			timeElapsed = 0;
 			timeElapsedText = new Text(String(timeElapsed));
 			castBarText = new Text(spellcastName);
 			castBar = new Image(new BitmapData(300, 30, false, 0x000000)); //set cast bar graphic
 			castBarElapsed = new Image(new BitmapData(300,30,false,0x444444)); //set cast bar graphic
 			spellcastGraphiclist = new Graphiclist(castBar,castBarElapsed,castBarText, timeElapsedText);
-			graphic = spellcastGraphiclist;
+			//graphic = spellcastGraphiclist;
 			
 			castBarElapsed.scaleX = 0;
 			castBarText.x = this.x;
@@ -42,23 +42,28 @@ package Game
 			this.y = FP.screen.height - FP.screen.height / 4;
 			castBarText.color = 0xFFFFFF;
 			
-			
-			trace(spellcastName);
 		}
 		
 		override public function added():void 
 		{
 			super.added();
+			
+			if (this.world.classCount(SpellCast) > 1)
+			{
+				trace("spell already casting");
+				this.world.remove(this);
+			}
+			
 		}
 		
 		override public function update():void 
 		{
 			timeElapsed += FP.elapsed;
 			super.update();
-			trace (timeElapsed);
+			//trace (timeElapsed);
 			if (timeElapsed < 3)
 			{
-				timeElapsedText = new Text(String(int(timeElapsed)), 300);
+				timeElapsedText = new Text(String(Math.round(timeElapsed *10 ) / 10) + "/3", 300);
 				castBarElapsed.scaleX = timeElapsed / 3;
 				spellcastGraphiclist = new Graphiclist(castBar,castBarElapsed,castBarText, timeElapsedText);
 				

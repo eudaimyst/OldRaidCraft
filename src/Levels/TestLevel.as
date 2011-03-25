@@ -1,5 +1,6 @@
 package Levels 
 {
+	import Game.Enemy;
 	import Game.Player;
 	import HUD.HUD;
 	import Menu.MainMenu;
@@ -21,7 +22,7 @@ package Levels
 			
 			add (new HUD());
 			
-
+			add (new Enemy("TestEnemy", 500, 100));
 			
 			add (new Player());
 			

@@ -25,7 +25,7 @@ package HUD
 			this.world.add (new HUD.SpellButton(GV.CHOSEN_SPELL_6, 6,0,0));
 			
 
-			
+			this.world.add (new HUD.TargetUnitFrame());
 			this.world.add (new HUD.PlayerUnitFrame());
 			super.added();
 		}
