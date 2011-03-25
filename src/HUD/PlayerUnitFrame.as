@@ -5,7 +5,6 @@ package HUD
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
-	import net.flashpunk.tweens.misc.VarTween;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.FP
 	
@@ -54,7 +53,7 @@ package HUD
 			
 			this.x = FP.screen.width / 40; //set co-ordinates of unit frame
 			trace(String(FP.screen.height));
-			this.y = FP.screen.height - FP.screen.height / 4;
+			this.y = FP.screen.height / 6;
 			
 		}
 		
