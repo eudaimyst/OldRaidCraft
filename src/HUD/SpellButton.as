@@ -1,5 +1,6 @@
 package HUD 
 {
+	import adobe.utils.CustomActions;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Graphiclist;
@@ -7,7 +8,6 @@ package HUD
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
-	import net.flashpunk.FP;
 	
 	/**
 	 * ...
@@ -95,10 +95,40 @@ package HUD
 			
 		}
 		
-		public function SetSpell(spellName2:String):void //this function will set the spell graphic
+		public function SetHUDSpell(setSpellNumberInt:int):void
+		{
+			switch (setSpellNumberInt)
+			{
+				case 1:
+				GV.CHOSEN_SPELL_1 = spellButtonName;
+				break;
+				case 2:
+				GV.CHOSEN_SPELL_2 = spellButtonName;
+				break;
+				case 3:
+				GV.CHOSEN_SPELL_3 = spellButtonName;
+				break;
+				case 4:
+				GV.CHOSEN_SPELL_4 = spellButtonName;
+				break;
+				case 5:
+				GV.CHOSEN_SPELL_5 = spellButtonName;
+				break;
+				case 6:
+				GV.CHOSEN_SPELL_6 = spellButtonName;
+				break;
+				
+				default:
+				break;
+				
+				
+			}
+		}
+		
+		public function SetSpell(spellName:String):void //this function will set the spell graphic
 		{
 			//case checks the passed string
-			switch (spellName2) {
+			switch (spellName) {
 				
 				
 				case "fireball":	//if fireball
@@ -201,13 +231,14 @@ package HUD
 					
 					if (Input.mouseReleased) 
 					{
-						var e:Entity = collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y) // if, on mouse release, this entity is colliding with an empty button
+						var e:HUD.SpellButton = collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y) as HUD.SpellButton; // if, on mouse release, this entity is colliding with an empty button
 						if (e)
 						{
 							trace("colliding with empty button");
 							this.x = e.x; //move this entity to the empty buttons location
 							this.y = e.y;
 							trace (e);
+							SetHUDSpell(e.spellButtonNumberInt); //gets the spell button number of the spell button this spell button is colliding with, and passes to function
 							
 						}
 						else

@@ -21,6 +21,8 @@ package
 		public static var CHOSEN_SPELL_7:String = "";
 		public static var CHOSEN_SPELL_8:String = "";
 		
+		public static var BLAH:int = 0;
+		
 	}
 
 }
