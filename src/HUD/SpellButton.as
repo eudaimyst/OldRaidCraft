@@ -1,6 +1,7 @@
 package HUD 
 {
 	import adobe.utils.CustomActions;
+	import Game.SpellCast;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Graphiclist;
@@ -95,7 +96,7 @@ package HUD
 			
 		}
 		
-		public function SetHUDSpell(setSpellNumberInt:int):void
+		public function SetHUDSpell(setSpellNumberInt:int):void //sets the chosen spell variables
 		{
 			switch (setSpellNumberInt)
 			{
@@ -200,9 +201,11 @@ package HUD
 					if (isActionBarButton == true) //if this button is on the actionbar
 					{
 						if (Input.mousePressed) //if mouse is pressed
+						
 						{
-							
+							trace(String(spellButtonName));
 							trace(String(isActionBarButton)); //trace if this entity is an actionbar button (testing)
+							this.world.add (new SpellCast(spellButtonName));
 						}
 						
 					}
@@ -231,22 +234,7 @@ package HUD
 					
 					if (Input.mouseReleased) 
 					{
-						var e:HUD.SpellButton = collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y) as HUD.SpellButton; // if, on mouse release, this entity is colliding with an empty button
-						if (e)
-						{
-							trace("colliding with empty button");
-							this.x = e.x; //move this entity to the empty buttons location
-							this.y = e.y;
-							trace (e);
-							SetHUDSpell(e.spellButtonNumberInt); //gets the spell button number of the spell button this spell button is colliding with, and passes to function
-							
-						}
-						else
-						{
-							trace("colliding with nothing");
-							this.x = buttonPosX; //if it's colliding with nothing, move this entity to it's original location (when the mouse was last pressed)
-							this.y = buttonPosY;
-						}
+						
 						var f:Entity = collide(GC.TYPE_SPELL_BUTTON, x, y) //if, on mouse release this entity is colliding with a non empty button
 						if (f)
 						{
@@ -254,9 +242,28 @@ package HUD
 							this.x = buttonPosX;
 							this.y = buttonPosY;
 						}
+						else
+						{
+							var e:HUD.SpellButton = collide(GC.TYPE_SPELL_BUTTON_EMPTY, x, y) as HUD.SpellButton; // if, on mouse release, this entity is colliding with an empty button
+							if (e)
+							{
+								trace("colliding with empty button");
+								this.x = e.x; //move this entity to the empty buttons location
+								this.y = e.y;
+								SetHUDSpell(e.spellButtonNumberInt); //gets the spell button number of the spell button this spell button is colliding with, and passes to function
+							
+							}
+							
+							else
+							{
+								trace("colliding with nothing");
+								this.x = buttonPosX; //if it's colliding with nothing, move this entity to it's original location (when the mouse was last pressed)
+								this.y = buttonPosY;
+							}
+						}
+						
 						buttonClicked = false; // if mouse was released, set to false so this entity no longer moves with the mouse
 						
-
 						
 					}
 				}
@@ -267,6 +274,7 @@ package HUD
 					graphic = spellGraphiclistPressed;
 					spellIcon.x -= 2;
 					spellIcon.y += 2;
+					this.world.add (new SpellCast(spellButtonName));
 				}
 				
 				if (Input.released(48 + spellButtonNumberInt)) //if it's released
