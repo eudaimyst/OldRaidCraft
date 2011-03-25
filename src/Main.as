@@ -16,6 +16,7 @@ package
 			trace("engine loaded");
 			super(800, 600, 60, false);
 			FP.world = new MainMenu;
+			//FP.console.enable();
 			
 		}
 		

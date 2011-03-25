@@ -1,6 +1,7 @@
 package Game 
 {
 	import HUD.TargetUnitFrame;
+	import Menu.MenuButton;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
@@ -23,6 +24,7 @@ package Game
 		protected var castBarText:Text;
 		protected var timeElapsed:Number;
 		protected var timeElapsedText:Text;
+		protected var e:Enemy
 		
 		public function SpellCast(spellcastName:String)
 		{
@@ -60,13 +62,14 @@ package Game
 				if (this.world.classCount(TargetUnitFrame) != 1)
 				{
 					trace("no target sellected");
+					this.world.add (new MenuButton("you have no target", 0));
 					this.world.remove(this);
 				}
 				else
 				{
 					var tuf = this.world.classFirst(TargetUnitFrame);
-					var e:Enemy = tuf.GetEnemy();
-					e.enemyCurrentHealth -= 50;
+					e = tuf.GetEnemy();
+					
 					trace("current health: " + e.enemyCurrentHealth + " max health: " + e.enemyMaxHealth);
 				}
 			}
@@ -79,6 +82,7 @@ package Game
 			//trace (timeElapsed);
 			if (timeElapsed < 3)
 			{
+				
 				timeElapsedText = new Text(String(Math.round(timeElapsed *10 ) / 10) + "/3", 300);
 				castBarElapsed.scaleX = timeElapsed / 3;
 				spellcastGraphiclist = new Graphiclist(castBar,castBarElapsed,castBarText, timeElapsedText);
@@ -87,6 +91,7 @@ package Game
 			}
 			else
 			{
+				e.enemyCurrentHealth -= 50;
 				this.world.remove(this);
 			}
 		}

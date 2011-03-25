@@ -74,6 +74,12 @@ package HUD
 		
 		override public function update():void 
 		{
+			if (targetedEnemy2.enemyCurrentHealth < 1)
+			{
+				targetedEnemy2.enemyDead = true;
+				this.world.remove (this);
+				
+			}
 			if (Input.pressed(Key.ESCAPE))
 			{
 				this.world.remove(this);

@@ -51,6 +51,10 @@ package Game
 		override public function update():void 
 		{
 			super.update();
+			if (enemyDead == true)
+			{
+				this.world.remove(this);
+			}
 			if (Input.mousePressed)
 			{
 				if (this.collide(GC.TYPE_MOUSE, x, y))

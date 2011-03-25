@@ -24,9 +24,11 @@ package Menu
 		protected var isHover:Boolean;
 		protected var menuItemNumber2:int;
 		protected var menuOption:String;
+		protected var timeElapsed:Number;
 		
 		public function MenuButton(BUTTON_TEXT:String, menuItemNumber:int) 
 		{
+			timeElapsed = 0;
 			Text.size = 24;
 			
 			//define button text and button graphic
@@ -57,12 +59,22 @@ package Menu
 			
 			//set hitbox for entity (to the dimensions of the button graphic)
 			this.setHitbox(menuButton.scaledWidth, menuButton.scaledHeight);
+			
+			
+			
 		}
 		
 		override public function update():void 
 		{
 			super.update();
 			
+			if (menuOption == "you have no target")
+			{
+				timeElapsed += FP.elapsed;
+				if (timeElapsed > 1) this.world.remove (this);
+				trace (timeElapsed);
+				
+			}
 			//if mouse is colliding with this entities hit box
 			if (this.collide(GC.TYPE_MOUSE, x, y))
 			{
