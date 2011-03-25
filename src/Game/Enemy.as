@@ -23,8 +23,10 @@ package Game
 		
 		protected var enemyImage:Image;
 		
-		public function Enemy(enemyName:String, enemyMaxHealth:Number, enemyMaxMana:Number) 
+		public function Enemy(enemyName:String, enemyMaxHealthPassed:Number, enemyMaxManaPassed:Number, locX:Number, locY:Number) 
 		{
+			enemyMaxHealth = enemyMaxHealthPassed;
+			enemyMaxMana = enemyMaxManaPassed;
 			enemyImage = new Image(new BitmapData(20, 60, false, 0x8800dd));
 			enemyDead = false;
 			enemyCurrentHealth = enemyMaxHealth;
@@ -33,8 +35,8 @@ package Game
 			enemyName2 = enemyName;
 			graphic = enemyImage;
 			this.setHitbox(20, 60);
-			this.x = FP.screen.width/2 - this.width;
-			this.y = FP.screen.height/2 - this.height;
+			this.x = locX;
+			this.y = locY;
 			
 		}
 		
@@ -53,11 +55,10 @@ package Game
 			{
 				if (this.collide(GC.TYPE_MOUSE, x, y))
 				{
-				trace("colliding with enemy");
-				var e:Enemy = this as Enemy;
-				this.world.add (new HUD.TargetUnitFrame(e));
-				
-				trace ("advanced test: " + e.enemyName2);
+					
+					trace("colliding with enemy");
+					var e:Enemy = this as Enemy;
+					this.world.add (new HUD.TargetUnitFrame(e));
 				}
 			
 			}

@@ -27,7 +27,6 @@ package HUD
 		protected var targetMana:Text;
 		protected var targetNameText:Text;
 		protected var targetName:String;
-		protected var targetName2test:String;
 		
 		public function TargetUnitFrame(targetedEnemy:Enemy) 
 		{
@@ -35,6 +34,7 @@ package HUD
 			trace("target unit frame loaded, target name: " + targetName);
 			
 			targetHealthBar = Image.createRect(120, 20, 0xcc2222); //set target health bar graphic
+			targetHealthBar.scaleX = targetedEnemy2.enemyCurrentHealth / targetedEnemy2.enemyMaxHealth;
 			
 			targetManaBar = Image.createRect(120, 20, 0x2222cc); //set target mana bar graphic
 			
@@ -67,9 +67,18 @@ package HUD
 			
 		}
 		
+		public function GetEnemy():Enemy
+		{
+			return targetedEnemy2;
+		}
+		
 		override public function update():void 
 		{
 			if (Input.pressed(Key.ESCAPE))
+			{
+				this.world.remove(this);
+			}
+			if (Input.mousePressed)
 			{
 				this.world.remove(this);
 			}
@@ -81,6 +90,7 @@ package HUD
 				targetHealth.y = targetHealthBar.y - 3;
 				
 				targetHealthBar.scaleX = targetedEnemy2.enemyCurrentHealth / targetedEnemy2.enemyMaxHealth;
+				trace (targetedEnemy2.enemyCurrentHealth);
 				
 				unitFrameGraphicList =  new Graphiclist(targetHealthBar, targetManaBar, targetHealthText, targetManaText, targetHealth, targetMana, targetNameText) //set which graphics to draw
 				graphic = unitFrameGraphicList; //draw graphics

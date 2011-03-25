@@ -22,7 +22,9 @@ package Levels
 			
 			add (new HUD());
 			
-			add (new Enemy("TestEnemy", 500, 100));
+			add (new Enemy("Enemy1", 500, 100, 300, 300));
+			add (new Enemy("Enemy2", 500, 100, 400, 300));
+			add (new Enemy("Enemy3", 500, 100, 500, 300));
 			
 			add (new Player());
 			

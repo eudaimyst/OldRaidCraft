@@ -1,5 +1,6 @@
 package Game 
 {
+	import HUD.TargetUnitFrame;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
@@ -54,6 +55,21 @@ package Game
 				this.world.remove(this);
 			}
 			
+			else
+			{
+				if (this.world.classCount(TargetUnitFrame) != 1)
+				{
+					trace("no target sellected");
+					this.world.remove(this);
+				}
+				else
+				{
+					var tuf = this.world.classFirst(TargetUnitFrame);
+					var e:Enemy = tuf.GetEnemy();
+					e.enemyCurrentHealth -= 50;
+					trace("current health: " + e.enemyCurrentHealth + " max health: " + e.enemyMaxHealth);
+				}
+			}
 		}
 		
 		override public function update():void 

@@ -42,6 +42,7 @@ package Game
 		override public function update():void 
 		{
 			super.update();
+			/*
 			if (GV.PLAYER_HEALTH_CURRENT < GV.PLAYER_HEALTH_MAX) //if health is less than the maximum, regenerate
 			{
 				playerCurrentHealth += .2;
@@ -77,6 +78,7 @@ package Game
 				}
 				
 			}
+			*/
 		}
 		
 	}
