@@ -1,5 +1,6 @@
 package  
 {
+	import Game.Enemy;
 	/**
 	 * ...
 	 * @author skipgamer
@@ -22,6 +23,8 @@ package
 		public static var CHOSEN_SPELL_8:String = "";
 		
 		public static var BLAH:int = 0;
+		
+		public static var TARGETED_ENEMY:Enemy;
 		
 	}
 

@@ -21,6 +21,7 @@ package
 		public static const TYPE_MOUSE:String = "mouse collision";
 		public static const TYPE_SPELL_BUTTON_EMPTY:String = "empty spell button";
 		public static const TYPE_SPELL_BUTTON:String = "non empty spell button";
+		public static const TYPE_ENEMY:String = "enemy collision";
 		
 		//Graphics
 		[Embed(source = '../assets/raidcraft_title.png')]
