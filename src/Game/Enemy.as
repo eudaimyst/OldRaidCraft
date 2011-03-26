@@ -20,6 +20,7 @@ package Game
 		public var enemyMaxMana:Number;
 		public var enemyDead:Boolean;
 		public var enemyName2:String;
+		public var dragonImage:Image;
 		
 		protected var enemyImage:Image;
 		
@@ -27,14 +28,15 @@ package Game
 		{
 			enemyMaxHealth = enemyMaxHealthPassed;
 			enemyMaxMana = enemyMaxManaPassed;
-			enemyImage = new Image(new BitmapData(20, 60, false, 0x8800dd));
+			enemyImage = new Image(GC.GFX_ENEMY_DRAGON);
+			enemyImage.scale = 2;
 			enemyDead = false;
 			enemyCurrentHealth = enemyMaxHealth;
 			enemyCurrentMana = enemyMaxMana;
 			trace("enemy added, name: " + enemyName + ", health: " + enemyCurrentHealth + ", mana: " + enemyCurrentMana)
 			enemyName2 = enemyName;
 			graphic = enemyImage;
-			this.setHitbox(20, 60);
+			this.setHitbox(enemyImage.scaledWidth, enemyImage.scaledHeight);
 			this.x = locX;
 			this.y = locY;
 			

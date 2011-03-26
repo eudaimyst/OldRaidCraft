@@ -1,8 +1,10 @@
 package Game 
 {
+	import Levels.GroundLayer;
 	import Menu.MenuButton;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.PreRotation;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.FP
@@ -20,6 +22,7 @@ package Game
 		protected var playerMaxMana:Number;
 		protected var playerDead:Boolean;
 		protected var playerImage:Image;
+		protected var radians:Number;
 		
 		public function Player()
 		{
@@ -31,11 +34,13 @@ package Game
 			
 			UpdateHealth();
 			
-			playerImage = new Image(GC.GFX_PLAYER);
-			playerImage.scale = 2;
+			playerImage = new PreRotation(GC.GFX_PLAYER);
+			playerImage.scale = 1;
 			graphic = playerImage;
 			this.x = FP.screen.width / 2 - playerImage.width / 2;
 			this.y = FP.screen.height - FP.screen.height / 3;
+			
+			playerImage.centerOrigin();
 			
 			
 			
@@ -51,44 +56,31 @@ package Game
 		
 		override public function update():void 
 		{
+			
+			FP.camera.x += ((this.x - FP.screen.width / 2) - FP.camera.x) * 0.1;
+			FP.camera.y += ((this.y - FP.screen.height + FP.screen.height / 4) - FP.camera.y) * 0.1;
+			
+			if (Input.check(Key.W))
+			{
+				this.y -= FP.elapsed * 40;
+			}
+			if (Input.check(Key.S))
+			{
+				this.y += FP.elapsed * 40;
+			}
+			if (Input.check(Key.A))
+			{
+				this.x -= FP.elapsed * 40;
+			}
+			if (Input.check(Key.D))
+			{
+				this.x += FP.elapsed * 40;
+			}
+			
 			super.update();
-			/*
-			if (GV.PLAYER_HEALTH_CURRENT < GV.PLAYER_HEALTH_MAX) //if health is less than the maximum, regenerate
-			{
-				playerCurrentHealth += .2;
-				UpdateHealth();
-			}
-			
-			if (GV.PLAYER_MANA_CURRENT < GV.PLAYER_MANA_MAX) //if mana is less than the maximum, regenerate
-			{
-				playerCurrentMana += .1;
-				UpdateHealth();
-			}
 			
 			
-			if (Input.pressed(Key.DIGIT_1)) //if key1 is pressed, remove some health (testing)
-			{
-				playerCurrentHealth -= 20;
-				trace (playerCurrentHealth);
-				UpdateHealth();
-			}
 			
-			if (Input.pressed(Key.DIGIT_2)) //if key2 is pressed, remove some mana (testing)
-			{
-				playerCurrentMana -= 20;
-				trace (playerCurrentMana);
-				UpdateHealth();
-			}
-			
-			if (playerCurrentHealth <= 0) { //if players health is less than or equal to 0, dead
-				if (playerDead == false)
-				{
-					this.world.add (new MenuButton("you died", -1));
-					playerDead = true;
-				}
-				
-			}
-			*/
 		}
 		
 	}

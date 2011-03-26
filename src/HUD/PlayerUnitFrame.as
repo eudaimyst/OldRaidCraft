@@ -51,14 +51,16 @@ package HUD
 			
 			graphic = unitFrameGraphicList; //draw graphics
 			
-			this.x = FP.screen.width / 40; //set co-ordinates of unit frame
-			trace(String(FP.screen.height));
-			this.y = FP.screen.height / 6;
+			this.x = FP.camera.x + FP.screen.width / 40; //set co-ordinates of unit frame
+			this.y = FP.camera.y + FP.screen.height / 6;
 			
 		}
 		
 		override public function update():void 
 		{
+			this.x = FP.camera.x + FP.screen.width / 40; //set co-ordinates of unit frame
+			this.y = FP.camera.y + FP.screen.height / 6;
+			
 			if (playerHealth.text != String(GV.PLAYER_HEALTH_CURRENT)) //if the player health has changed
 			{
 				playerHealth = new Text (String(GV.PLAYER_HEALTH_CURRENT)); //update player health text

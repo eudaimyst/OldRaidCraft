@@ -62,8 +62,8 @@ package HUD
 			
 			graphic = unitFrameGraphicList; //draw graphics
 			
-			this.x = FP.screen.width - targetHealthBar.width - FP.screen.width / 40; //set co-ordinates of unit frame
-			this.y = FP.screen.height / 6;
+			this.x = FP.camera.x + FP.screen.width - targetHealthBar.width - FP.screen.width / 40; //set co-ordinates of unit frame
+			this.y = FP.camera.y + FP.screen.height / 6;
 			
 		}
 		
@@ -74,6 +74,10 @@ package HUD
 		
 		override public function update():void 
 		{
+			
+			this.x = FP.camera.x + FP.screen.width - targetHealthBar.width - FP.screen.width / 40; //set co-ordinates of unit frame
+			this.y = FP.camera.y + FP.screen.height / 6;
+			
 			if (targetedEnemy2.enemyCurrentHealth < 1)
 			{
 				targetedEnemy2.enemyDead = true;

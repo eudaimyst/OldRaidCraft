@@ -30,6 +30,14 @@ package
 		[Embed(source = '../assets/player.png')]
 		public static const GFX_PLAYER:Class;
 		
+		[Embed(source = '../assets/level_ground.png')]
+		public static const GFX_GROUND:Class;
+		
+		// enemies
+		
+		[Embed(source = '../assets/dragon.png')]
+		public static const GFX_ENEMY_DRAGON:Class;
+		
 		// mouse icon
 		
 		[Embed(source = '../assets/mouse_cursor.png')]

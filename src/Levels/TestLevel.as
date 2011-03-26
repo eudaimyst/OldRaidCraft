@@ -28,7 +28,7 @@ package Levels
 			
 			add (new Player());
 			
-			
+			add (new GroundLayer);
 			
 		}
 		

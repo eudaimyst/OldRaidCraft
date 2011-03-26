@@ -1,0 +1,16 @@
+<project>
+	<name>RaidCraft Tilemap</name>
+	<settings>
+		<defaultWidth>1600</defaultWidth>
+		<defaultHeight>1216</defaultHeight>
+	</settings>
+	
+	<tilesets>
+		<tileset name = "tiles" image = "assets/tilemap.png" tileHeight = "32" tileWidth = "32" />
+	</tilesets>
+	
+	<layers>
+		<tiles name ="OurTiles" gridSize = "32" />
+		
+	</layers>
+</project>
