@@ -1,6 +1,7 @@
 package HUD 
 {
 	import flash.display.BitmapData;
+	import Levels.CameraMover;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
@@ -58,8 +59,6 @@ package HUD
 		
 		override public function update():void 
 		{
-			this.x = FP.camera.x + FP.screen.width / 40; //set co-ordinates of unit frame
-			this.y = FP.camera.y + FP.screen.height / 6;
 			
 			if (playerHealth.text != String(GV.PLAYER_HEALTH_CURRENT)) //if the player health has changed
 			{

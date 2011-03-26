@@ -30,11 +30,12 @@ package Levels
 			
 			add (new GroundLayer);
 			
+			add (new Levels.CameraMover);
+			
 		}
 		
 		override public function begin():void 
 		{
-			add (new MouseCursorEntity());
 			super.begin();
 		}
 		

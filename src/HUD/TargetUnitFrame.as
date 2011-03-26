@@ -28,33 +28,32 @@ package HUD
 		protected var targetNameText:Text;
 		protected var targetName:String;
 		
-		public function TargetUnitFrame(targetedEnemy:Enemy) 
+		public function TargetUnitFrame() 
 		{
-			targetedEnemy2 = targetedEnemy;
 			trace("target unit frame loaded, target name: " + targetName);
 			
 			targetHealthBar = Image.createRect(120, 20, 0xcc2222); //set target health bar graphic
-			targetHealthBar.scaleX = targetedEnemy2.enemyCurrentHealth / targetedEnemy2.enemyMaxHealth;
+			//targetHealthBar.scaleX = targetedEnemy2.enemyCurrentHealth / targetedEnemy2.enemyMaxHealth;
 			
 			targetManaBar = Image.createRect(120, 20, 0x2222cc); //set target mana bar graphic
 			
 			targetManaBar.y = 25;
 			
-			targetHealth = new Text (String(targetedEnemy.enemyCurrentHealth)); //set target health text to global target health variable
+			targetHealth = new Text (""); //set target health text to global target health variable
 			targetHealth.x = targetHealthBar.x - 5 - targetHealth.width;
 			targetHealth.y = targetHealthBar.y - 3;
 			targetHealthText = new Text ("HP:"); //set target health bar text
 			targetHealthText.x = targetHealth.x - targetHealthText.width;
 			targetHealthText.y = targetHealthBar.y - 3;
 			
-			targetMana = new Text (String(targetedEnemy.enemyCurrentMana)); //set target mana text to global target mana variable
+			targetMana = new Text (""); //set target mana text to global target mana variable
 			targetMana.x = targetManaBar.x - 5 - targetMana.width;
 			targetMana.y = targetManaBar.y - 3;
 			targetManaText = new Text ("MP:"); //set target mana bar text
 			targetManaText.x = targetMana.x - targetManaText.width;
 			targetManaText.y = targetManaBar.y - 3;
 			
-			targetNameText = new Text ("Target: " + targetedEnemy.enemyName2);
+			targetNameText = new Text ("");
 			targetNameText.x = targetHealthBar.width - targetNameText.width;
 			targetNameText.y = -targetNameText.height;
 			
@@ -67,23 +66,22 @@ package HUD
 			
 		}
 		
-		public function GetEnemy():Enemy
+		public function GetEnemy()
 		{
-			return targetedEnemy2;
+		//	return targetedEnemy2;
 		}
 		
 		override public function update():void 
 		{
 			
-			this.x = FP.camera.x + FP.screen.width - targetHealthBar.width - FP.screen.width / 40; //set co-ordinates of unit frame
-			this.y = FP.camera.y + FP.screen.height / 6;
-			
+			/*
 			if (targetedEnemy2.enemyCurrentHealth < 1)
 			{
 				targetedEnemy2.enemyDead = true;
 				this.world.remove (this);
-				
 			}
+			*/
+			
 			if (Input.pressed(Key.ESCAPE))
 			{
 				this.world.remove(this);
@@ -92,7 +90,7 @@ package HUD
 			{
 				this.world.remove(this);
 			}
-			
+			/*
 			if (targetHealth.text != String(targetedEnemy2.enemyCurrentHealth)) //if the target health has changed
 			{
 				targetHealth = new Text (String(targetedEnemy2.enemyCurrentHealth)); //update target health text
@@ -118,6 +116,7 @@ package HUD
 				unitFrameGraphicList =  new Graphiclist(targetHealthBar, targetManaBar, targetHealthText, targetManaText, targetHealth, targetMana, targetNameText) //set which graphics to draw
 				graphic = unitFrameGraphicList; //draw graphics
 			}
+			*/
 			super.update();
 		}
 	}

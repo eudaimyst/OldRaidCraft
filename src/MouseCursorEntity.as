@@ -15,6 +15,8 @@ package
 	public class MouseCursorEntity extends Entity 
 	{
 		protected var mouseFlash:Image;
+		static public var mouseLocX:Number;
+		static public var mouseLocY:Number;
 		
 		public function MouseCursorEntity() 
 		{
@@ -31,20 +33,29 @@ package
 			this.setHitbox(2, 2);
 			type = GC.TYPE_MOUSE;
 			
-			
 			Image(this.graphic).scaleX = 2;
 			Image(this.graphic).scaleY = 2;
+			
 			this.layer = -100;
 			
+			mouseLocX = 0;
+			mouseLocY = 0;
+			
+
+		}
+		override public function added():void 
+		{
+			super.added();
+			this.x = Input.mouseX;
+			this.y = Input.mouseY;
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			
-			//move to mouse location
-			x = Input.mouseX;
-			y = Input.mouseY;
+
+			this.x = Input.mouseX + mouseLocX;
+			this.y = Input.mouseY + mouseLocY;
 			
 			if (Input.mousePressed) {
 				this.world.add (new MouseFlash());

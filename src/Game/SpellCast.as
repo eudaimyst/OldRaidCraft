@@ -24,7 +24,7 @@ package Game
 		protected var castBarText:Text;
 		protected var timeElapsed:Number;
 		protected var timeElapsedText:Text;
-		protected var e:Enemy
+		protected var e:Enemy;
 		
 		public function SpellCast(spellcastName:String)
 		{
@@ -67,10 +67,10 @@ package Game
 				}
 				else
 				{
-					var tuf = this.world.classFirst(TargetUnitFrame);
-					e = tuf.GetEnemy();
+					//var tuf = this.world.classFirst(TargetUnitFrame);
+					//e = tuf.GetEnemy();
 					
-					trace("current health: " + e.enemyCurrentHealth + " max health: " + e.enemyMaxHealth);
+					//trace("current health: " + e.enemyCurrentHealth + " max health: " + e.enemyMaxHealth);
 				}
 			}
 		}

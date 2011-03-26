@@ -74,7 +74,6 @@ package HUD
 			
 			
 			
-			
 			if (spellNumber != 0) // if the spell number passed to this entity is not zero (ie, this IS an action bar spell)
 			{
 				isActionBarButton = true;
@@ -195,18 +194,9 @@ package HUD
 		{
 			
 			super.update();
-			
-			if (isActionBarButton == true) // if the spell number passed to this entity is not zero (ie, this IS an action bar spell)
-			{
-				this.x = FP.camera.x + (FP.screen.width / 9 * spellNumber2 - spellButtonNormal.scaledWidth); //set location of this entity to the action bar area
-				this.y = FP.camera.y + (FP.screen.height - spellButtonNormal.scaledHeight * 1.25);
-			}
-				
 				
 			if (spellLoaded == true) //if this entity has a spell loaded
 			{
-				
-
 				
 				if (this.collide(GC.TYPE_MOUSE, x, y)) //if mouse is over this entity
 				{

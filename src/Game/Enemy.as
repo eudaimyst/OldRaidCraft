@@ -64,7 +64,6 @@ package Game
 					
 					trace("colliding with enemy");
 					var e:Enemy = this as Enemy;
-					this.world.add (new HUD.TargetUnitFrame(e));
 				}
 			
 			}
