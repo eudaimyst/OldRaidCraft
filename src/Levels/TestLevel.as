@@ -1,6 +1,8 @@
 package Levels 
 {
 	import Game.Enemy;
+	import Game.EnemyDragon;
+	import Game.EnemyMonster;
 	import Game.Player;
 	import HUD.HUD;
 	import Menu.MainMenu;
@@ -22,9 +24,9 @@ package Levels
 			
 			add (new HUD());
 			
-			add (new Enemy("Enemy1", 500, 100, 300, 300));
-			add (new Enemy("Enemy2", 500, 100, 400, 300));
-			add (new Enemy("Enemy3", 500, 100, 500, 300));
+			add (new EnemyDragon(300, 300));
+			add (new EnemyMonster(400, 300));
+			add (new EnemyDragon(500, 300));
 			
 			add (new Player());
 			

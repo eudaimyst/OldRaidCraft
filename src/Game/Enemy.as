@@ -20,35 +20,19 @@ package Game
 		public var enemyMaxMana:Number;
 		public var enemyDead:Boolean;
 		public var enemyName2:String;
-		public var dragonImage:Image;
+		public var enemyName:String;
 		
-		protected var enemyImage:Image;
+		public var enemyImage:Image;
 		
-		public function Enemy(enemyName:String, enemyMaxHealthPassed:Number, enemyMaxManaPassed:Number, locX:Number, locY:Number) 
+		public function Enemy(locX, locY) 
 		{
-			enemyMaxHealth = enemyMaxHealthPassed;
-			enemyMaxMana = enemyMaxManaPassed;
-			enemyImage = new Image(GC.GFX_ENEMY_DRAGON);
-			enemyImage.scale = 2;
-			enemyDead = false;
-			enemyCurrentHealth = enemyMaxHealth;
-			enemyCurrentMana = enemyMaxMana;
-			trace("enemy added, name: " + enemyName + ", health: " + enemyCurrentHealth + ", mana: " + enemyCurrentMana)
-			enemyName2 = enemyName;
-			graphic = enemyImage;
-			this.setHitbox(enemyImage.scaledWidth, enemyImage.scaledHeight);
+
+			
 			this.x = locX;
 			this.y = locY;
 			
 		}
 		
-		
-		override public function added():void 
-		{
-			super.added();
-			
-
-		}
 		
 		override public function update():void 
 		{
@@ -57,15 +41,13 @@ package Game
 			{
 				this.world.remove(this);
 			}
+			
 			if (Input.mousePressed)
 			{
-				if (this.collide(GC.TYPE_MOUSE, x, y))
+				if (collide(GC.TYPE_MOUSE,x,y))
 				{
-					
-					trace("colliding with enemy");
-					var e:Enemy = this as Enemy;
+					trace(enemyName);
 				}
-			
 			}
 		}
 		

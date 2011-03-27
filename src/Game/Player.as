@@ -60,33 +60,31 @@ package Game
 		{
 			
 			
-			if (Input.check("MovePlayer"))
+			if (Input.check("MovePlayer")) //send player data to camera mover entity
 			{
-				
 				CameraMover.moveDistanceX = 0;
 				CameraMover.moveDistanceY = 0;
-				movementDelta = FP.elapsed * 40; // speed at which to move the player
-				trace (movementDelta);
+				movementDelta = FP.elapsed * GV.PLAYER_MOVE_SPEED; // speed at which to move the player
 				
 				if (Input.check(Key.W))
 				{
 					this.y -= movementDelta;
-					CameraMover.moveDistanceY = -movementDelta;
+					CameraMover.moveDistanceY -= movementDelta;
 				}
 				if (Input.check(Key.S))
 				{
 					this.y += movementDelta;
-					CameraMover.moveDistanceY = movementDelta;
+					CameraMover.moveDistanceY += movementDelta;
 				}
 				if (Input.check(Key.A))
 				{
 					this.x -= movementDelta;
-					CameraMover.moveDistanceX = -movementDelta;
+					CameraMover.moveDistanceX -= movementDelta;
 				}
 				if (Input.check(Key.D))
 				{
 					this.x += movementDelta;
-					CameraMover.moveDistanceX = movementDelta;
+					CameraMover.moveDistanceX += movementDelta;
 				}
 				playerX = this.x;
 				playerY = this.y;

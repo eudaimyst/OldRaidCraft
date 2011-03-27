@@ -25,13 +25,11 @@ package HUD
 		
 		protected var MouseCursor1:MouseCursorEntity;
 		
-		protected var getAbLocX:Boolean;
-		
 		
 		
 		public function HUD() 
 		{
-			getAbLocX = false;
+			
 		}
 		override public function added():void 
 		{
@@ -65,21 +63,15 @@ package HUD
 		{
 			if (CameraMover.playerIsMoving == true)
 			{
-				//move Actionbarbutton's to camera's location if the player is moving (will hopefully clean up later)
-				SpellButton.abXd = CameraMover.moveDistanceX;
-				SpellButton.abYd = CameraMover.moveDistanceY;
-				
-				PlayerUnitFrame1.x += CameraMover.moveDistanceX;
-				PlayerUnitFrame1.y += CameraMover.moveDistanceY;
-				
-				TargetUnitFrame1.x += CameraMover.moveDistanceX;
-				TargetUnitFrame1.y += CameraMover.moveDistanceY;
+				HUD.HUDEntity.movementDeltaX = CameraMover.moveDistanceX;
+				HUD.HUDEntity.movementDeltaY = CameraMover.moveDistanceY;
 				
 				MouseCursorEntity.mouseLocX += CameraMover.moveDistanceX;
 				MouseCursorEntity.mouseLocY += CameraMover.moveDistanceY;
 			}
 			super.update();
 		}
+		
 		
 	}
 

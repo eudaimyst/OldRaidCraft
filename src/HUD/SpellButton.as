@@ -15,7 +15,7 @@ package HUD
 	 * ...
 	 * @author skipgamer
 	 */
-	public class SpellButton extends Entity 
+	public class SpellButton extends HUD.HUDEntity 
 	{
 		// define graphics variables
 		protected var spellButtonPressed:Image;
@@ -42,7 +42,7 @@ package HUD
 		private var buttonPosX:Number; //used for storing position of button on mouse press to move it back if no collision
 		private var buttonPosY:Number;
 		
-		static public var abXd:Number; //used for translating camera movement (static so it works for all spells)
+		static public var abXd:Number; //used for translating camera movement (local, this will be set to 0 after each movement)
 		static public var abYd:Number;
 		
 		protected var abXdL:Number; //used for translating camera movement (local, this will be set to 0 after each movement)
@@ -53,10 +53,6 @@ package HUD
 		
 		public function SpellButton(spellName:String, spellNumber:int, gridLocX:int, gridLocY:int)
 		{
-			abXd = 0;
-			abYd = 0;
-			abXdL = 0;
-			abYdL = 0;
 			
 			spellNumber2 = spellNumber;
 			
@@ -206,14 +202,6 @@ package HUD
 		{
 			
 			super.update();
-			
-			if (CameraMover.playerIsMoving == true) //if the player is moving
-			{
-				this.x += abXd; //move actionbar button based on x and y delta's (set in hud)
-				this.y += abYd;
-				trace (abXd);
-				
-			}
 				
 			if (spellLoaded == true) //if this entity has a spell loaded
 			{

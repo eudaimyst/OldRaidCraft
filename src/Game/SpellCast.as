@@ -1,5 +1,6 @@
 package Game 
 {
+	import HUD.HUDMessage;
 	import HUD.TargetUnitFrame;
 	import Menu.MenuButton;
 	import net.flashpunk.Entity;
@@ -62,7 +63,7 @@ package Game
 				if (this.world.classCount(TargetUnitFrame) != 1)
 				{
 					trace("no target sellected");
-					this.world.add (new MenuButton("you have no target", 0));
+					this.world.add (new HUDMessage("you have no target"));
 					this.world.remove(this);
 				}
 				else

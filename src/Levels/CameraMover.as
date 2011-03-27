@@ -12,13 +12,14 @@ package Levels
 	public class CameraMover extends Entity
 	{
 		static public var playerIsMoving:Boolean;
-		static public var moveDistanceX:Number;
-		static public var moveDistanceY:Number;
+		static public var moveDistanceX:Number = 0;
+		static public var moveDistanceY:Number = 0;
+		private var cameraPosX:Number = 0;
+		private var cameraPosY:Number = 0;
+		
 		
 		public function CameraMover():void
 		{
-			moveDistanceX = 0;
-			moveDistanceY = 0;
 		}
 		
 		override public function update():void 
@@ -26,8 +27,17 @@ package Levels
 			if (playerIsMoving == true)
 			{
 				//trace ("move camera running");
-				FP.camera.y += moveDistanceY;
-				FP.camera.x += moveDistanceX;
+				trace(moveDistanceX);
+				
+				FP.camera.x = Player.playerX - FP.screen.width / 2;
+				FP.camera.y = Player.playerY - FP.screen.height * 2 / 3;
+				
+				//moveDistanceX = FP.camera.x - cameraPosX; 
+				//moveDistanceY = FP.camera.y - cameraPosY; 
+				
+				//cameraPosX = Player.playerX
+				//cameraPosY = Player.playerY
+				
 			}
 			
 			super.update();

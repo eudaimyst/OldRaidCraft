@@ -12,6 +12,7 @@ package
 		public static var PLAYER_MANA_CURRENT:int = 0;
 		public static var PLAYER_HEALTH_MAX:int = 0;
 		public static var PLAYER_MANA_MAX:int = 0;
+		public static var PLAYER_MOVE_SPEED:int = 80;
 		
 		public static var CHOSEN_SPELL_1:String = "";
 		public static var CHOSEN_SPELL_2:String = "";

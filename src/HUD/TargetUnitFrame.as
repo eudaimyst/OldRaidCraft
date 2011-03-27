@@ -2,6 +2,7 @@ package HUD
 {
 	import flash.display.BitmapData;
 	import Game.Enemy;
+	import Levels.CameraMover;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
@@ -14,9 +15,9 @@ package HUD
 	 * ...
 	 * @author skipgamer
 	 */
-	public class TargetUnitFrame extends Entity 
+	public class TargetUnitFrame extends HUDEntity 
 	{
-		protected var targetedEnemy2:Enemy
+		static public var targetedEnemy2:Enemy
 		protected var targetHealthBar:Image;
 		protected var targetManaBar:Image;
 		protected var unitFrameGraphicList:Graphiclist;
@@ -26,7 +27,8 @@ package HUD
 		protected var targetHealth:Text;
 		protected var targetMana:Text;
 		protected var targetNameText:Text;
-		protected var targetName:String;
+		static public var targetName:String;
+		
 		
 		public function TargetUnitFrame() 
 		{
@@ -73,6 +75,7 @@ package HUD
 		
 		override public function update():void 
 		{
+
 			
 			/*
 			if (targetedEnemy2.enemyCurrentHealth < 1)
@@ -80,17 +83,7 @@ package HUD
 				targetedEnemy2.enemyDead = true;
 				this.world.remove (this);
 			}
-			*/
-			
-			if (Input.pressed(Key.ESCAPE))
-			{
-				this.world.remove(this);
-			}
-			if (Input.mousePressed)
-			{
-				this.world.remove(this);
-			}
-			/*
+
 			if (targetHealth.text != String(targetedEnemy2.enemyCurrentHealth)) //if the target health has changed
 			{
 				targetHealth = new Text (String(targetedEnemy2.enemyCurrentHealth)); //update target health text

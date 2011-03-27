@@ -13,7 +13,7 @@ package HUD
 	 * ...
 	 * @author skipgamer
 	 */
-	public class PlayerUnitFrame extends Entity 
+	public class PlayerUnitFrame extends HUD.HUDEntity 
 	{
 		protected var playerHealthBar:Image;
 		protected var playerManaBar:Image;
