@@ -13,7 +13,7 @@ package
 	public class MouseFlash extends Entity 
 	{
 		protected var mouseFlash:Image;
-		public var i:int = 0;
+		private var i:int = 0;
 		
 		public function MouseFlash() 
 		{
@@ -21,8 +21,8 @@ package
 			mouseFlash = new Image(GC.GFX_MOUSE_FLASH);
 			graphic = mouseFlash;
 			mouseFlash.scale = 2;
-			mouseFlash.x = Input.mouseX - mouseFlash.scaledWidth / 2;
-			mouseFlash.y = Input.mouseY - mouseFlash.scaledHeight / 2;
+			this.x = Input.mouseX + MouseCursorEntity.mouseLocX - mouseFlash.scaledWidth / 2;
+			this.y = Input.mouseY + MouseCursorEntity.mouseLocY - mouseFlash.scaledHeight / 2;
 			this.layer = -101;
 			
 		}
@@ -32,7 +32,7 @@ package
 			super.update();
 			i++;
 			//on each fame remove 10% alpha
-			mouseFlash.alpha -= .1;
+			mouseFlash.alpha -= .1
 			
 			//after 10 frames (the alpha runs out) remove this entity
 			if (i > 10)
