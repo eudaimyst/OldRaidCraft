@@ -5,6 +5,7 @@ package HUD
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import MouseCursorEntity;
+	import HUD.SpellButton;
 	
 	/**
 	 * ...
@@ -65,18 +66,8 @@ package HUD
 			if (CameraMover.playerIsMoving == true)
 			{
 				//move Actionbarbutton's to camera's location if the player is moving (will hopefully clean up later)
-				ActionbarButton1.x += CameraMover.moveDistanceX;
-				ActionbarButton1.y += CameraMover.moveDistanceY;
-				ActionbarButton2.x += CameraMover.moveDistanceX;
-				ActionbarButton2.y += CameraMover.moveDistanceY;
-				ActionbarButton3.x += CameraMover.moveDistanceX;
-				ActionbarButton3.y += CameraMover.moveDistanceY;
-				ActionbarButton4.x += CameraMover.moveDistanceX;
-				ActionbarButton4.y += CameraMover.moveDistanceY;
-				ActionbarButton5.x += CameraMover.moveDistanceX;
-				ActionbarButton5.y += CameraMover.moveDistanceY;
-				ActionbarButton6.x += CameraMover.moveDistanceX;
-				ActionbarButton6.y += CameraMover.moveDistanceY;
+				SpellButton.abXd = CameraMover.moveDistanceX;
+				SpellButton.abYd = CameraMover.moveDistanceY;
 				
 				PlayerUnitFrame1.x += CameraMover.moveDistanceX;
 				PlayerUnitFrame1.y += CameraMover.moveDistanceY;

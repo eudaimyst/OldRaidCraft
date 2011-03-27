@@ -62,10 +62,11 @@ package Game
 			
 			if (Input.check("MovePlayer"))
 			{
-				CameraMover.playerIsMoving = true;
+				
 				CameraMover.moveDistanceX = 0;
 				CameraMover.moveDistanceY = 0;
-				movementDelta = FP.elapsed * 40;
+				movementDelta = FP.elapsed * 40; // speed at which to move the player
+				trace (movementDelta);
 				
 				if (Input.check(Key.W))
 				{
@@ -74,21 +75,22 @@ package Game
 				}
 				if (Input.check(Key.S))
 				{
-					this.y += FP.elapsed * 40;
+					this.y += movementDelta;
 					CameraMover.moveDistanceY = movementDelta;
 				}
 				if (Input.check(Key.A))
 				{
-					this.x -= FP.elapsed * 40;
+					this.x -= movementDelta;
 					CameraMover.moveDistanceX = -movementDelta;
 				}
 				if (Input.check(Key.D))
 				{
-					this.x += FP.elapsed * 40;
+					this.x += movementDelta;
 					CameraMover.moveDistanceX = movementDelta;
 				}
 				playerX = this.x;
 				playerY = this.y;
+				CameraMover.playerIsMoving = true;
 			}
 			else CameraMover.playerIsMoving = false;
 			

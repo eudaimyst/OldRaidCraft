@@ -25,7 +25,7 @@ package Levels
 		{
 			if (playerIsMoving == true)
 			{
-				trace ("move camera running");
+				//trace ("move camera running");
 				FP.camera.y += moveDistanceY;
 				FP.camera.x += moveDistanceX;
 			}
