@@ -15,18 +15,11 @@ package Game
 	public class EnemyDragon extends Enemy 
 	{
 		
-		public function EnemyDragon(locX, locY) 
+		public function EnemyDragon(locX:Number, locY:Number) 
 		{
 			super(locX, locY) //passes these values on to enemy
-		}
-		
-		
-		override public function added():void 
-		{
-			super.added();
-			
 			enemyName = "Dragon";
-			enemyMaxHealth = 0;
+			enemyMaxHealth = 1000;
 			enemyMaxMana = 0;
 			enemyImage = new Image(GC.GFX_ENEMY_DRAGON);
 			enemyImage.scale = 2;
@@ -34,8 +27,6 @@ package Game
 			enemyCurrentHealth = enemyMaxHealth;
 			enemyCurrentMana = enemyMaxMana;
 			trace("enemy added, name: " + enemyName + ", health: " + enemyCurrentHealth + ", mana: " + enemyCurrentMana)
-			graphic = enemyImage;
-			this.setHitbox(enemyImage.scaledWidth, enemyImage.scaledHeight);
 		}
 		
 	}

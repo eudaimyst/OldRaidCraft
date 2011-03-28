@@ -1,7 +1,6 @@
 package HUD 
 {
 	import flash.display.BitmapData;
-	import Levels.CameraMover;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
@@ -23,6 +22,7 @@ package HUD
 		protected var playerManaText:Text;
 		protected var playerHealth:Text;
 		protected var playerMana:Text;
+		
 		
 		public function PlayerUnitFrame() 
 		{
@@ -51,9 +51,12 @@ package HUD
 			unitFrameGraphicList = new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
 			
 			graphic = unitFrameGraphicList; //draw graphics
+			graphic.scrollX = 0; //locks this entities graphic to camera
+			graphic.scrollY = 0;
 			
 			this.x = FP.camera.x + FP.screen.width / 40; //set co-ordinates of unit frame
-			this.y = FP.camera.y + FP.screen.height / 6;
+			this.y = FP.camera.y + FP.screen.height / 14;
+			
 			
 		}
 		
@@ -70,6 +73,8 @@ package HUD
 				
 				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
 				graphic = unitFrameGraphicList; //draw graphics
+				graphic.scrollX = 0; //locks this entities graphic to camera
+				graphic.scrollY = 0;
 			}
 			
 			if (playerMana.text != String(GV.PLAYER_MANA_CURRENT)) //if the player mana has changed
@@ -83,6 +88,8 @@ package HUD
 				
 				unitFrameGraphicList =  new Graphiclist(playerHealthBar, playerManaBar, playerHealthText, playerManaText, playerHealth, playerMana) //set which graphics to draw
 				graphic = unitFrameGraphicList; //draw graphics
+				graphic.scrollX = 0; //locks this entities graphic to camera
+				graphic.scrollY = 0;
 			}
 			super.update();
 		}

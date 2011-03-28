@@ -1,6 +1,6 @@
 package Menu 
 {
-	import HUD.SpellButton;
+	//import HUD.SpellButton;
 	import Levels.SpellSelect;
 	import Levels.TestLevel;
 	import net.flashpunk.Entity;

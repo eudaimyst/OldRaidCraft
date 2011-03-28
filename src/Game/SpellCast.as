@@ -25,10 +25,11 @@ package Game
 		protected var castBarText:Text;
 		protected var timeElapsed:Number;
 		protected var timeElapsedText:Text;
-		protected var e:Enemy;
 		
 		public function SpellCast(spellcastName:String)
 		{
+			trace("spell started");
+			
 			timeElapsed = 0;
 			timeElapsedText = new Text(String(timeElapsed));
 			castBarText = new Text(spellcastName);
@@ -55,23 +56,17 @@ package Game
 			if (this.world.classCount(SpellCast) > 1)
 			{
 				trace("spell already casting");
-				this.world.remove(this);
+				this.world.add (new HUDMessage("already casting"));
+				this.world.remove (this);
 			}
 			
 			else
 			{
-				if (this.world.classCount(TargetUnitFrame) != 1)
+				if (GV.TARGETED_ENEMY == null)
 				{
 					trace("no target sellected");
 					this.world.add (new HUDMessage("you have no target"));
 					this.world.remove(this);
-				}
-				else
-				{
-					//var tuf = this.world.classFirst(TargetUnitFrame);
-					//e = tuf.GetEnemy();
-					
-					//trace("current health: " + e.enemyCurrentHealth + " max health: " + e.enemyMaxHealth);
 				}
 			}
 		}
@@ -89,10 +84,13 @@ package Game
 				spellcastGraphiclist = new Graphiclist(castBar,castBarElapsed,castBarText, timeElapsedText);
 				
 				graphic = spellcastGraphiclist;
+				graphic.scrollX = 0;
+				graphic.scrollY = 0;
 			}
 			else
 			{
-				e.enemyCurrentHealth -= 50;
+				GV.TARGETED_ENEMY.enemyCurrentHealth -= 50;
+				TargetUnitFrame.targetChanged = true;
 				this.world.remove(this);
 			}
 		}

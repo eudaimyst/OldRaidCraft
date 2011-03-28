@@ -1,6 +1,5 @@
 package Game 
 {
-	import Levels.CameraMover;
 	import Levels.GroundLayer;
 	import Menu.MenuButton;
 	import net.flashpunk.Entity;
@@ -40,12 +39,25 @@ package Game
 			playerImage = new PreRotation(GC.GFX_PLAYER);
 			playerImage.scale = 1;
 			graphic = playerImage;
+			
+			
 			this.x = FP.screen.width / 2;
 			this.y = FP.screen.height - FP.screen.height / 3;
+			
+			
+			FP.camera.x = Player.playerX - FP.screen.width / 2;
+			FP.camera.y = Player.playerY - FP.screen.height * 2 / 3;
 			
 			playerImage.centerOrigin();
 			
 			Input.define("MovePlayer", Key.W, Key.S, Key.A, Key.D); // define the movement keys
+		}
+		
+		override public function added():void
+		{
+			FP.camera.x = x - FP.screen.width / 2;
+			FP.camera.y = y - FP.screen.height * 2 / 3;
+			
 		}
 		
 		public function UpdateHealth():void //function to update the player health and mana (converts numbers to ints and stores in GV)
@@ -62,35 +74,29 @@ package Game
 			
 			if (Input.check("MovePlayer")) //send player data to camera mover entity
 			{
-				CameraMover.moveDistanceX = 0;
-				CameraMover.moveDistanceY = 0;
 				movementDelta = FP.elapsed * GV.PLAYER_MOVE_SPEED; // speed at which to move the player
 				
 				if (Input.check(Key.W))
 				{
 					this.y -= movementDelta;
-					CameraMover.moveDistanceY -= movementDelta;
 				}
 				if (Input.check(Key.S))
 				{
 					this.y += movementDelta;
-					CameraMover.moveDistanceY += movementDelta;
 				}
 				if (Input.check(Key.A))
 				{
 					this.x -= movementDelta;
-					CameraMover.moveDistanceX -= movementDelta;
 				}
 				if (Input.check(Key.D))
 				{
 					this.x += movementDelta;
-					CameraMover.moveDistanceX += movementDelta;
 				}
 				playerX = this.x;
 				playerY = this.y;
-				CameraMover.playerIsMoving = true;
+				FP.camera.x = Player.playerX - FP.screen.width / 2;
+				FP.camera.y = Player.playerY - FP.screen.height * 2 / 3;
 			}
-			else CameraMover.playerIsMoving = false;
 			
 			super.update();
 			

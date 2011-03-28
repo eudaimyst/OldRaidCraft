@@ -15,9 +15,19 @@ package Game
 	public class EnemyMonster extends Enemy 
 	{
 		
-		public function EnemyMonster(locX, locY) 
+		public function EnemyMonster(locX:Number, locY:Number) 
 		{	
 			super(locX, locY) //passes these values on to enemy
+			
+			enemyName = "Monster";
+			enemyMaxHealth = 800;
+			enemyMaxMana = 200;
+			enemyImage = new Image(GC.GFX_ENEMY_DRAGON);
+			enemyImage.color = 0x8888FF;
+			enemyImage.scale = 2;
+			enemyDead = false;
+			enemyCurrentHealth = enemyMaxHealth;
+			enemyCurrentMana = enemyMaxMana;
 		}
 		
 		
@@ -25,20 +35,14 @@ package Game
 		{
 			super.added();
 			
-			enemyName = "Monster";
-			enemyMaxHealth = 0;
-			enemyMaxMana = 0;
-			enemyImage = new Image(GC.GFX_ENEMY_DRAGON);
-			enemyImage.color = 0x8888FF;
-			enemyImage.scale = 2;
-			enemyDead = false;
-			enemyCurrentHealth = enemyMaxHealth;
-			enemyCurrentMana = enemyMaxMana;
-			trace("enemy added, name: " + enemyName + ", health: " + enemyCurrentHealth + ", mana: " + enemyCurrentMana)
-			graphic = enemyImage;
-			this.setHitbox(enemyImage.scaledWidth, enemyImage.scaledHeight);
+
+			
 		}
 		
+		override public function update():void 
+		{
+			super.update();
+		}
 	}
 
 }

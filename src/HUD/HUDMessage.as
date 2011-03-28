@@ -16,14 +16,16 @@ package HUD
 			message = new Text(messageText);
 			message.color = (0xFF0000);
 			graphic = message;
+			graphic.scrollX = 0;
+			graphic.scrollY = 0;
 
 		}
 		
 		override public function added():void 
 		{
 			super.added();
-			this.x = FP.camera.x + FP.screen.width / 2 - message.width/2;
-			this.y = FP.camera.y + FP.screen.height / 2;
+			this.x = FP.screen.width / 2 - message.width/2;
+			this.y = FP.screen.height / 2;
 			
 		}
 		

@@ -20,9 +20,13 @@ package
 			trace ("mouse press function called");
 			mouseFlash = new Image(GC.GFX_MOUSE_FLASH);
 			graphic = mouseFlash;
+
+			
 			mouseFlash.scale = 2;
-			this.x = Input.mouseX + MouseCursorEntity.mouseLocX - mouseFlash.scaledWidth / 2;
-			this.y = Input.mouseY + MouseCursorEntity.mouseLocY - mouseFlash.scaledHeight / 2;
+			this.x = Input.mouseX - mouseFlash.scaledWidth / 2;
+			this.y = Input.mouseY - mouseFlash.scaledHeight / 2;
+			graphic.scrollX = 0; //locks this entities graphic to camera
+			graphic.scrollY = 0;
 			this.layer = -101;
 			
 		}

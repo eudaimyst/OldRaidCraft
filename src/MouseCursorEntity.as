@@ -15,8 +15,6 @@ package
 	public class MouseCursorEntity extends Entity 
 	{
 		protected var mouseFlash:Image;
-		static public var mouseLocX:Number;
-		static public var mouseLocY:Number;
 		
 		public function MouseCursorEntity() 
 		{
@@ -38,9 +36,6 @@ package
 			
 			this.layer = -100;
 			
-			mouseLocX = 0;
-			mouseLocY = 0;
-			
 
 		}
 		override public function added():void 
@@ -54,8 +49,8 @@ package
 		{
 			super.update();
 
-			this.x = Input.mouseX + mouseLocX;
-			this.y = Input.mouseY + mouseLocY;
+			this.x = Input.mouseX + FP.camera.x;
+			this.y = Input.mouseY + FP.camera.y;
 			
 			if (Input.mousePressed) {
 				this.world.add (new MouseFlash());

@@ -18,7 +18,7 @@ package Levels
 			
 			groundImage = new Image(GC.GFX_GROUND);
 			
-			groundImage.scale = 2;
+			groundImage.scale = 1;
 			
 			this.x = 0;
 			this.y = 0;

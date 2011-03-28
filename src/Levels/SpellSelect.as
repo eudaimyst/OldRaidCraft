@@ -1,6 +1,6 @@
 package Levels 
 {
-	import HUD.SpellButton;
+	//import HUD.SpellButton;
 	import Menu.MenuButton;
 	import net.flashpunk.World;
 	
@@ -15,7 +15,7 @@ package Levels
 		{
 			add (new MenuButton("select your spells", -2));
 			add (new MenuButton(GC.TEXT_DONE_SPELL_SELECT, 3));
-			
+			/*
 			//create grid
 			add (new HUD.SpellButton("", 0, 1, 1));
 			add (new HUD.SpellButton("", 0, 2, 1));
@@ -44,7 +44,7 @@ package Levels
 			add (new HUD.SpellButton(GV.CHOSEN_SPELL_4, 4, 0, 0));
 			add (new HUD.SpellButton(GV.CHOSEN_SPELL_5, 5, 0, 0));
 			add (new HUD.SpellButton(GV.CHOSEN_SPELL_6, 6, 0, 0));
-			
+			*/
 			
 			
 		}
