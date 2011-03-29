@@ -18,6 +18,7 @@ package
 		public static var PLAYER_HEALTH_MAX:int = 0;
 		public static var PLAYER_MANA_MAX:int = 0;
 		public static var PLAYER_MOVE_SPEED:int = 60;
+		public static var PLAYER_IS_CASTING:Boolean = false;
 		
 		public static var CHOSEN_SPELL_1:Class = Fireball;
 		public static var CHOSEN_SPELL_2:Class = Arcane;

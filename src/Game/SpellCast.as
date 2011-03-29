@@ -57,21 +57,32 @@ package Game
 		override public function added():void 
 		{
 			super.added();
-			
-			if (this.world.classCount(SpellCast) > 1)
+			if (GV.PLAYER_IS_CASTING == true) //if a spell is already casting (this class has an instance already)
 			{
 				trace("spell already casting");
 				this.world.add (new HUDMessage("already casting"));
 				this.world.remove (this);
 			}
-			
 			else
 			{
-				if (GV.TARGETED_ENEMY == null)
+				if (GV.TARGETED_ENEMY == null) //if there is no enemy target
 				{
 					trace("no target sellected");
 					this.world.add (new HUDMessage("you have no target"));
 					this.world.remove(this);
+				}
+				else
+				{
+					if (Player.isMoving == true) //if the player is moving
+					{
+						trace("player is moving");
+						this.world.add (new HUDMessage("cant cast while moving"));
+						this.world.remove(this);
+					}
+					else //spell is cast
+					{
+						GV.PLAYER_IS_CASTING = true;
+					}
 				}
 			}
 		}
@@ -100,8 +111,14 @@ package Game
 				{
 					this.world.add (new SpellProjectile(passedSpell as BaseSpell)); 
 				}
+				passedSpell.AddCooldown();
+				
 				GV.TARGETED_ENEMY.enemyCurrentHealth -= passedSpell.spellDamage;
 				TargetUnitFrame.targetChanged = true;
+				
+				GV.PLAYER_IS_CASTING = false;
+				trace("player no longer casting");
+				
 				this.world.remove(this);
 			}
 		}

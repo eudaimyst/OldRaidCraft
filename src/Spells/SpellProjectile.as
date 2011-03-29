@@ -44,7 +44,7 @@ package Spells
 			}
 			else
 			{
-			passedSpell.projectileImage.angle = 90 + FP.angle(GV.PLAYER_ENTITY.x, GV.PLAYER_ENTITY.y, targetProjectileX, targetProjectileY); //set angle of projectile image (stored in BaseSpell) to point towards current enemy
+			passedSpell.projectileImage.angle = 90 + FP.angle(GV.PLAYER_ENTITY.x, GV.PLAYER_ENTITY.y, targetProjectileX, targetProjectileY); //set angle of projectile image (image is stored in BaseSpell) to point towards current enemy
 			moveTowards(targetProjectileX, targetProjectileY, passedSpell.projectileSpeed); //move towards targeted enemy
 			}
 			

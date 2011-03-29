@@ -19,6 +19,7 @@ package Spells
 			spellName = "Fireball";
 			castTime = 1.5;
 			spellDamage = 100;
+			cooldownTime = 3;
 			
 			hasProjectile = true;
 			projectileImage = new Image(new BitmapData(4, 8, false, 0xff9000));

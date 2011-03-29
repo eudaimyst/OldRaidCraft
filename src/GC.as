@@ -39,6 +39,9 @@ package
 		[Embed(source = '../assets/tileset.png')]
 		public static const GFX_TILE_TEST:Class;
 		
+		[Embed(source = '../assets/cooldown_spritesheet.png')]
+		public static const GFX_COOLDOWN:Class;
+		
 		// enemies
 		
 		[Embed(source = '../assets/dragon.png')]
