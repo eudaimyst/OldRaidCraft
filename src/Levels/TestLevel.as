@@ -17,6 +17,8 @@ package Levels
 	 */
 	public class TestLevel extends World 
 	{
+
+		
 		
 		public function TestLevel() 
 		{
@@ -30,7 +32,7 @@ package Levels
 			
 			add (new Player());
 			
-			add (new GroundLayer);
+			add (new GroundLayer(GC.TILEMAP_TEST_LEVEL));
 			
 		}
 		

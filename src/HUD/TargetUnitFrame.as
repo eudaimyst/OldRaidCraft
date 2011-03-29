@@ -33,14 +33,6 @@ package HUD
 		
 		public function TargetUnitFrame() 
 		{
-			
-		}
-		
-		override public function added():void 
-		{
-			super.added();
-			
-			
 			targetHealthBar = Image.createRect(120, 20, 0xcc2222); //set target health bar graphic
 			//targetHealthBar.scaleX = targetedEnemy2.enemyCurrentHealth / targetedEnemy2.enemyMaxHealth;
 			
@@ -68,10 +60,20 @@ package HUD
 			
 			unitFrameGraphicList = new Graphiclist(targetHealthBar, targetManaBar, targetHealthText, targetManaText, targetHealth, targetMana, targetNameText); //set which graphics to draw
 			
-			//graphic = unitFrameGraphicList; //draw graphics
+			graphic = new Graphiclist(); //draw graphics
+			graphic.scrollX = 0; //locks this entities graphic to camera
+			graphic.scrollY = 0;
 			
 			this.x = FP.camera.x + FP.screen.width - targetHealthBar.width - FP.screen.width / 40; //set co-ordinates of unit frame
 			this.y = FP.camera.y + FP.screen.height / 14;
+		}
+		
+		override public function added():void 
+		{
+			super.added();
+			
+			
+
 		}
 		
 		public function UpdateFrame():void
@@ -116,6 +118,9 @@ package HUD
 				else
 				{
 					graphic = new Graphiclist();
+					
+					graphic.scrollX = 0; //locks this entities graphic to camera
+					graphic.scrollY = 0;
 				}
 			}
 		}

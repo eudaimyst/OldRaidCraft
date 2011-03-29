@@ -20,6 +20,8 @@ package Spells
 	public class BaseSpell extends Entity
 	{
 		public var spellName:String;
+		public var castTime:Number;
+		public var spellDamage:Number;
 		
 		protected var spellButton:Image = new Image(GC.GFX_SPELL_BUTTON_NORMAL);
 		
@@ -38,7 +40,7 @@ package Spells
 			
 			this.type = GC.TYPE_SPELL_BUTTON;
 			
-			
+			spellGraphiclist = new Graphiclist(spellButton);
 		}
 		override public function added():void 
 		{
@@ -76,8 +78,8 @@ package Spells
 				trace ("this pos x" + this.x + "this pos y" + this.y)
 				if (collidePoint(x, y, world.mouseX - FP.camera.x, world.mouseY - FP.camera.y))
 				{
-					trace ("spell pressed" + this.spellName);
-					this.world.add (new SpellCast(this.spellName));
+					trace ("spell pressed" + this.spellName + castTime + spellDamage);
+					this.world.add (new SpellCast(spellName, castTime, spellDamage));
 				}
 			}
 		}

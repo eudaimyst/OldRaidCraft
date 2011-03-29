@@ -6,7 +6,6 @@ package Spells
 	import net.flashpunk.graphics.Image
 	import net.flashpunk.graphics.Graphiclist
 	import net.flashpunk.graphics.Text
-	import Spells.Fireball;
 	import Spells.BaseSpell;
 	/**
 	 * ...
@@ -14,7 +13,6 @@ package Spells
 	 */
 	public class Fireball extends BaseSpell
 	{
-		static public var castTime:Number = 3;
 		
 		protected var spellIcon:Image = new Image(GC.GFX_SPELL_ICON_FIRE);
 		
@@ -23,14 +21,18 @@ package Spells
 		
 		public function Fireball(i:Number) 
 		{
-			spellName = "Fireball";
 			super(i);
+			spellName = "Fireball";
+			castTime = 1.5;
+			spellDamage = 100;
+			
 			
 			spellIcon.scale = 2;
 			
 			
 			
-			spellGraphiclist = new Graphiclist(spellButton, spellIcon);
+			
+			spellGraphiclist.add(spellIcon);
 			
 			graphic = spellGraphiclist;
 			graphic.scrollX = 0;

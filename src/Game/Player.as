@@ -3,6 +3,7 @@ package Game
 	import Levels.GroundLayer;
 	import Menu.MenuButton;
 	import net.flashpunk.Entity;
+	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.PreRotation;
 	import net.flashpunk.utils.Input;
@@ -38,17 +39,18 @@ package Game
 			
 			playerImage = new PreRotation(GC.GFX_PLAYER);
 			playerImage.scale = 1;
-			graphic = playerImage;
+			graphic = new Graphiclist(playerImage);
 			
 			
-			this.x = FP.screen.width / 2;
-			this.y = FP.screen.height - FP.screen.height / 3;
+			this.x = 400;
+			this.y = 600;
 			
 			
 			FP.camera.x = Player.playerX - FP.screen.width / 2;
 			FP.camera.y = Player.playerY - FP.screen.height * 2 / 3;
 			
-			playerImage.centerOrigin();
+			
+			setHitbox (20, 10,-11,-27);
 			
 			Input.define("MovePlayer", Key.W, Key.S, Key.A, Key.D); // define the movement keys
 		}
@@ -70,7 +72,12 @@ package Game
 		
 		override public function update():void 
 		{
-			
+			if (collide("level", x, y))
+			{
+				//colliding with level
+				trace("collision!");//test
+				GV.PLAYER_HEALTH_CURRENT -= 1;
+			}
 			
 			if (Input.check("MovePlayer")) //send player data to camera mover entity
 			{
@@ -92,10 +99,10 @@ package Game
 				{
 					this.x += movementDelta;
 				}
-				playerX = this.x;
-				playerY = this.y;
-				FP.camera.x = Player.playerX - FP.screen.width / 2;
-				FP.camera.y = Player.playerY - FP.screen.height * 2 / 3;
+				//playerX = this.x;
+				//playerY = this.y;
+				FP.camera.x = this.x - FP.screen.width / 2;
+				FP.camera.y = this.y - FP.screen.height * 2 / 3;
 			}
 			
 			super.update();

@@ -19,6 +19,9 @@ package Game
 	public class SpellCast extends Entity 
 	{
 		protected var spellcastName:String;
+		protected var spellcastDamage:Number;
+		protected var spellcastTime:Number;
+		
 		protected var spellcastGraphiclist:Graphiclist;
 		protected var castBar:Image;
 		protected var castBarElapsed:Image;
@@ -26,9 +29,13 @@ package Game
 		protected var timeElapsed:Number;
 		protected var timeElapsedText:Text;
 		
-		public function SpellCast(spellcastName:String)
+		public function SpellCast(iName:String, iTime:Number, iDamage:Number)
 		{
 			trace("spell started");
+			spellcastName = iName;
+			spellcastDamage = iDamage;
+			spellcastTime = iTime;
+			trace (String(iTime));
 			
 			timeElapsed = 0;
 			timeElapsedText = new Text(String(timeElapsed));
@@ -76,11 +83,12 @@ package Game
 			timeElapsed += FP.elapsed;
 			super.update();
 			//trace (timeElapsed);
-			if (timeElapsed < 3)
+			//trace (String(spellcastTime));
+			if (timeElapsed < spellcastTime)
 			{
 				
-				timeElapsedText = new Text(String(Math.round(timeElapsed *10 ) / 10) + "/3", 300);
-				castBarElapsed.scaleX = timeElapsed / 3;
+				timeElapsedText = new Text(String(Math.round(timeElapsed *10 ) / 10) + "/" + String(spellcastTime), 300);
+				castBarElapsed.scaleX = timeElapsed / spellcastTime;
 				spellcastGraphiclist = new Graphiclist(castBar,castBarElapsed,castBarText, timeElapsedText);
 				
 				graphic = spellcastGraphiclist;
@@ -89,7 +97,7 @@ package Game
 			}
 			else
 			{
-				GV.TARGETED_ENEMY.enemyCurrentHealth -= 50;
+				GV.TARGETED_ENEMY.enemyCurrentHealth -= spellcastDamage;
 				TargetUnitFrame.targetChanged = true;
 				this.world.remove(this);
 			}
