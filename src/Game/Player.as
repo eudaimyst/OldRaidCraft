@@ -23,9 +23,10 @@ package Game
 		protected var playerMaxMana:Number;
 		protected var playerDead:Boolean;
 		protected var playerImage:Image;
-		static public var playerX:Number; //player x position, accessed by camera function
-		static public var playerY:Number; //player y position, accesed by camera function
 		protected var movementDelta:Number;
+		static public var isMoving:Boolean = false;
+		static public var xLoc:Number;
+		static public var yLoc:Number;
 		
 		public function Player()
 		{
@@ -42,12 +43,11 @@ package Game
 			graphic = new Graphiclist(playerImage);
 			
 			
-			this.x = 400;
-			this.y = 600;
+			x = 400; y = 600; xLoc = x; yLoc = y;
 			
 			
-			FP.camera.x = Player.playerX - FP.screen.width / 2;
-			FP.camera.y = Player.playerY - FP.screen.height * 2 / 3;
+			FP.camera.x = this.x - FP.screen.width / 2;
+			FP.camera.y = this.y - FP.screen.height * 2 / 3;
 			
 			
 			setHitbox (20, 10,-11,-27);
@@ -59,6 +59,8 @@ package Game
 		{
 			FP.camera.x = x - FP.screen.width / 2;
 			FP.camera.y = y - FP.screen.height * 2 / 3;
+			
+			GV.PLAYER_ENTITY = this as Player; //set global variable player entity to this instance of this enemy
 			
 		}
 		
@@ -81,6 +83,8 @@ package Game
 			
 			if (Input.check("MovePlayer")) //send player data to camera mover entity
 			{
+				isMoving = true;
+				
 				movementDelta = FP.elapsed * GV.PLAYER_MOVE_SPEED; // speed at which to move the player
 				
 				if (Input.check(Key.W))
@@ -99,10 +103,13 @@ package Game
 				{
 					this.x += movementDelta;
 				}
-				//playerX = this.x;
-				//playerY = this.y;
 				FP.camera.x = this.x - FP.screen.width / 2;
 				FP.camera.y = this.y - FP.screen.height * 2 / 3;
+				xLoc = x; yLoc = y;
+			}
+			else
+			{
+				if (isMoving == true) isMoving = false;
 			}
 			
 			super.update();

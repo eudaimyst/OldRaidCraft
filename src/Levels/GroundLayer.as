@@ -15,7 +15,7 @@ package Levels
 	{
 		protected var groundImage:Image;
 		private var _tiles:Tilemap;
-		private var _grid:Grid;
+		private var lavaCollision:Grid;
 		
 		public function GroundLayer(xml:Class) 
 		{
@@ -23,10 +23,10 @@ package Levels
 			graphic = _tiles;
 			layer = 5;
 			
-			_grid = new Grid(1600, 1216, 32, 32, 0, 0);
-			mask = _grid;
+			lavaCollision = new Grid(1600, 1216, 32, 32, 0, 0);
+			mask = lavaCollision;
 			
-			type = "level";
+			type = "lava";
 			
 			loadlevel(xml);
 		}
@@ -44,7 +44,7 @@ package Levels
 			for each(dataElement in dataList)
 			{
 				_tiles.setTile(int(dataElement.@x) / 32, int(dataElement.@y) / 32, int(dataElement.@tx) / 32);
-				_grid.setTile(int(dataElement.@x) / 32, int(dataElement.@y) / 32, (int(dataElement.@tx) / 32 == 2));
+				lavaCollision.setTile(int(dataElement.@x) / 32, int(dataElement.@y) / 32, (int(dataElement.@tx) / 32 == 2));
 			}
 			
 		}

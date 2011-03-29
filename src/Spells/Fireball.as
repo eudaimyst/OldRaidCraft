@@ -1,23 +1,17 @@
 package Spells 
 {
-	import HUD.ActionBarSpell;
 	import net.flashpunk.Entity
-	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image
-	import net.flashpunk.graphics.Graphiclist
-	import net.flashpunk.graphics.Text
-	import Spells.BaseSpell;
+	import flash.display.BitmapData
+	import net.flashpunk.FP
+	
 	/**
 	 * ...
 	 * @author skipgamer
 	 */
 	public class Fireball extends BaseSpell
 	{
-		
-		protected var spellIcon:Image = new Image(GC.GFX_SPELL_ICON_FIRE);
-		
-		
-		
+		private var spellIcon:Image = new Image(GC.GFX_SPELL_ICON_FIRE);
 		
 		public function Fireball(i:Number) 
 		{
@@ -26,26 +20,12 @@ package Spells
 			castTime = 1.5;
 			spellDamage = 100;
 			
+			hasProjectile = true;
+			projectileImage = new Image(new BitmapData(4, 8, false, 0xff9000));
+			projectileSpeed = FP.elapsed * 1000;
 			
 			spellIcon.scale = 2;
-			
-			
-			
-			
 			spellGraphiclist.add(spellIcon);
-			
-			graphic = spellGraphiclist;
-			graphic.scrollX = 0;
-			graphic.scrollY = 0;
-			
-		}
-		override public function added():void 
-		{
-			super.added();
-			//trace (Spell.spellName);
-			
-			//x position of this entity is determined by how many of these entities there are
-
 			
 		}
 		

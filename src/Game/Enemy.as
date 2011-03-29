@@ -53,7 +53,7 @@ package Game
 				if (collidePoint(x, y, world.mouseX, world.mouseY))
 				{
 					TargetUnitFrame.targetChanged = true;
-					GV.TARGETED_ENEMY = this as Enemy;
+					GV.TARGETED_ENEMY = this as Enemy; //set global variable targeted enemy to this instance of this enemy
 					isTargeted = true;
 				}
 				/*

@@ -10,6 +10,8 @@ package Game
 	import flash.display.BitmapData;
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.World;
+	import Spells.BaseSpell;
+	import Spells.SpellProjectile;
 	
 	/**
 	 * ...
@@ -18,9 +20,7 @@ package Game
 	
 	public class SpellCast extends Entity 
 	{
-		protected var spellcastName:String;
-		protected var spellcastDamage:Number;
-		protected var spellcastTime:Number;
+		protected var passedSpell:BaseSpell;
 		
 		protected var spellcastGraphiclist:Graphiclist;
 		protected var castBar:Image;
@@ -29,17 +29,15 @@ package Game
 		protected var timeElapsed:Number;
 		protected var timeElapsedText:Text;
 		
-		public function SpellCast(iName:String, iTime:Number, iDamage:Number)
+		
+		public function SpellCast(i:BaseSpell) //set spell cast bar graphics
 		{
-			trace("spell started");
-			spellcastName = iName;
-			spellcastDamage = iDamage;
-			spellcastTime = iTime;
-			trace (String(iTime));
+			passedSpell = i;
+			//trace("spell started");
 			
 			timeElapsed = 0;
-			timeElapsedText = new Text(String(timeElapsed));
-			castBarText = new Text(spellcastName);
+			timeElapsedText = new Text(String(passedSpell.spellName));
+			castBarText = new Text(passedSpell.spellName);
 			castBar = new Image(new BitmapData(300, 30, false, 0x000000)); //set cast bar graphic
 			castBarElapsed = new Image(new BitmapData(300,30,false,0x444444)); //set cast bar graphic
 			spellcastGraphiclist = new Graphiclist(castBar,castBarElapsed,castBarText, timeElapsedText);
@@ -80,24 +78,29 @@ package Game
 		
 		override public function update():void 
 		{
-			timeElapsed += FP.elapsed;
 			super.update();
+			
+			timeElapsed += FP.elapsed;
+			
 			//trace (timeElapsed);
 			//trace (String(spellcastTime));
-			if (timeElapsed < spellcastTime)
+			if (timeElapsed < passedSpell.castTime) //if time passed since this entity was created is less than the cast time of this spell, update cast bar graphics
 			{
-				
-				timeElapsedText = new Text(String(Math.round(timeElapsed *10 ) / 10) + "/" + String(spellcastTime), 300);
-				castBarElapsed.scaleX = timeElapsed / spellcastTime;
+				timeElapsedText = new Text(String(Math.round(timeElapsed *10 ) / 10) + "/" + passedSpell.castTime, 300);
+				castBarElapsed.scaleX = timeElapsed / passedSpell.castTime;
 				spellcastGraphiclist = new Graphiclist(castBar,castBarElapsed,castBarText, timeElapsedText);
 				
 				graphic = spellcastGraphiclist;
 				graphic.scrollX = 0;
 				graphic.scrollY = 0;
 			}
-			else
+			else // if spell has finished casting
 			{
-				GV.TARGETED_ENEMY.enemyCurrentHealth -= spellcastDamage;
+				if (passedSpell.hasProjectile == true) //if spell has a projectile
+				{
+					this.world.add (new SpellProjectile(passedSpell as BaseSpell)); 
+				}
+				GV.TARGETED_ENEMY.enemyCurrentHealth -= passedSpell.spellDamage;
 				TargetUnitFrame.targetChanged = true;
 				this.world.remove(this);
 			}
