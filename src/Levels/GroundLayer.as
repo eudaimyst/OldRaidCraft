@@ -14,7 +14,7 @@ package Levels
 	public class GroundLayer extends Entity 
 	{
 		protected var groundImage:Image;
-		private var _tiles:Tilemap;
+		static public var _tiles:Tilemap;
 		private var lavaCollision:Grid;
 		
 		public function GroundLayer(xml:Class) 

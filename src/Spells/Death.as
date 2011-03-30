@@ -17,7 +17,7 @@ package Spells
 			spellName = "Death";
 			castTime = 0;
 			spellDamage = 5;
-			cooldownTime = 0.1;
+			cooldownTime = 0;
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

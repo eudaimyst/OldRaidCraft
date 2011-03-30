@@ -57,56 +57,37 @@ package Game
 		override public function added():void 
 		{
 			super.added();
-			if (GV.PLAYER_IS_CASTING == true) //if a spell is already casting (this class has an instance already)
+			if (GV.TARGETED_ENEMY == null) //if there is no enemy target
 			{
-				trace("spell already casting");
-				this.world.add (new HUDMessage("already casting"));
-				this.world.remove (this);
+				trace("no target sellected");
+				this.world.add (new HUDMessage("you have no target"));
+				this.world.remove(this);
 			}
 			else
 			{
-				if (GV.TARGETED_ENEMY == null) //if there is no enemy target
+				if (Player.isMoving == true) //if the player is moving
 				{
-					trace("no target sellected");
-					this.world.add (new HUDMessage("you have no target"));
+					trace("player is moving");
+					this.world.add (new HUDMessage("cant cast while moving"));
 					this.world.remove(this);
 				}
 				else
 				{
-					if (Player.isMoving == true) //if the player is moving
-					{
-						trace("player is moving");
-						this.world.add (new HUDMessage("cant cast while moving"));
-						this.world.remove(this);
-					}
-					else
-					{
+					GV.PLAYER_IS_CASTING = true;
 						
-						if (BaseSpell.onGlobalCooldown == true) //if global cooldown is on
-						{
-							trace("global cooldown on");
-							this.world.add (new HUDMessage("global cooldown"));
-							this.world.remove(this);
-						}
-						else //spell is cast
-						{
-							GV.PLAYER_IS_CASTING = true;
-							
-							var myArray:Array
-							//FP.world.getClass(BaseSpell, myArray);
-							FP.world.getClass(BaseSpell, myArray);
-							
-							//trace(myArray[1]);
-							for each (var allSpells:BaseSpell in myArray)
-							{
-								//trace("array[" + key + "] = "+ myArray[key])
-								trace(allSpells.spellName);
-								//allSpells.AddGlobalCooldown();
-							}
-						}
+					var myArray:Array = new Array();
+					FP.world.getClass(BaseSpell, myArray); //gets all instances of BaseSpell and stores them in an array
+					
+					for each (var allSpells:BaseSpell in myArray) //for each instance of BaseSpell in the Array
+					{
+						//trace(allSpells.spellName); //error checking
+						BaseSpell.onGlobalCooldown = true; //sets onGlobalCooldown for all instances of BaseSpell to true
+						allSpells.AddGlobalCooldown(); //calls AddGlobal function in all instances of BaseSpell
 					}
+					
 				}
 			}
+			
 		}
 		
 		override public function update():void 
@@ -141,7 +122,7 @@ package Game
 				GV.PLAYER_IS_CASTING = false;
 				trace("player no longer casting");
 				
-				this.world.remove(this);
+				FP.world.remove(this);
 			}
 		}
 	}

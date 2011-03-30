@@ -103,8 +103,15 @@ package Game
 				{
 					this.x += movementDelta;
 				}
-				FP.camera.x = this.x - FP.screen.width / 2;
-				FP.camera.y = this.y - FP.screen.height * 2 / 3;
+				//move camera
+				if (this.x > FP.screen.width/2 && this.x < GroundLayer._tiles.width - FP.screen.width/2)
+				{
+					FP.camera.x = this.x - FP.screen.width / 2;
+				}
+				if (this.y > FP.screen.height * 2 / 3 && this.y < GroundLayer._tiles.height - FP.screen.height / 3)
+				{
+					FP.camera.y = this.y - FP.screen.height * 2 / 3;
+				}
 				xLoc = x; yLoc = y;
 			}
 			else

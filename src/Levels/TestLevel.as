@@ -21,9 +21,7 @@ package Levels
 		
 		
 		public function TestLevel() 
-		{
-			add (new MenuButton("this is a TestLevel", -2));
-			
+		{	
 			add (new HUD());
 			
 			add (new EnemyDragon(300, 300));

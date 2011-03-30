@@ -85,14 +85,22 @@ package Spells
 		
 		public function CastSpell():void
 		{
-			if (onCooldown == false) //if this spell is not on cooldown
+			if (onGlobalCooldown == false) //if global cooldown is not on
 			{
-				
-				trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
-				this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
-				
+				if (GV.PLAYER_IS_CASTING == false) //if the player is not casting
+				{
+					if (onCooldown == false) //if this spell is not on cooldown
+					{
+						
+						trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
+						this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
+						
+					}
+					else this.world.add (new HUDMessage("spell is on cooldown"));
+				}
+				else this.world.add (new HUDMessage("already casting"));
 			}
-			else this.world.add (new HUDMessage("spell is on cooldown"));
+			else this.world.add (new HUDMessage("global cooldown"));
 		}
 		
 		public function AddGlobalCooldown():void //called from spellcast entity
@@ -106,16 +114,19 @@ package Spells
 		{
 			spellGraphiclist.remove(sprGlobalCooldown);
 			trace("removed global cooldown");
-			//BaseSpell.onGlobalCooldown = false;
+			BaseSpell.onGlobalCooldown = false;
 		}
 		
 		
 		public function AddCooldown():void //called from spellcast entity
 		{
+			if (cooldownTime != 0) // if the spell has a cooldown time, if not, do nothing
+			{
 			trace("play cooldown and add to graphiclist");
 			sprCooldown.play("cooldown"); //play cooldown sprite in base spell entity
 			spellGraphiclist.add(sprCooldown); //add cooldown sprite to graphiclist in base spell entity
 			onCooldown = true;
+			}
 		}
 		
 		public function RemoveCooldown():void //called at the end of cooldown animation
