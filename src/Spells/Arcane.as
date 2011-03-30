@@ -18,6 +18,7 @@ package Spells
 			castTime = .5;
 			spellDamage = 20;
 			
+			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);
 			

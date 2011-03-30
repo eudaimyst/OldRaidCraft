@@ -23,6 +23,7 @@ package Spells
 	public class BaseSpell extends Entity
 	{
 		private var onCooldown:Boolean = false;
+		public static var onGlobalCooldown:Boolean = false;
 		
 		//spell variables, to be set in entities which extend this
 		public var spellName:String;
@@ -38,6 +39,8 @@ package Spells
 		//graphics
 		protected var spellButton:Image = new Image(GC.GFX_SPELL_BUTTON_NORMAL);
 		public var sprCooldown:Spritemap = new Spritemap(GC.GFX_COOLDOWN, 32, 32, RemoveCooldown);
+		public var sprGlobalCooldown:Spritemap = new Spritemap(GC.GFX_COOLDOWN, 32, 32, RemoveGlobalCooldown);
+		
 		public var spellGraphiclist:Graphiclist;
 		
 		//position of spell on actionbar, set by whatever calls this entity
@@ -66,6 +69,11 @@ package Spells
 			sprCooldown.alpha = .5;
 			sprCooldown.color = 0x000000;
 			
+			sprGlobalCooldown.add("cooldown", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 32 / GV.GLOBAL_COOLDOWN_TIME, true);
+			sprGlobalCooldown.scale = 2;
+			sprGlobalCooldown.alpha = .5;
+			sprGlobalCooldown.color = 0x000000;
+			
 			//spellbutton graphic
 			this.x = actionbarNumber * spellButton.scaledWidth + 10 * actionbarNumber - spellButton.scaledWidth;
 			this.y = FP.screen.height - spellButton.scaledHeight - 10;
@@ -86,6 +94,21 @@ package Spells
 			}
 			else this.world.add (new HUDMessage("spell is on cooldown"));
 		}
+		
+		public function AddGlobalCooldown():void //called from spellcast entity
+		{
+			trace("play cooldown and add to graphiclist");
+			sprGlobalCooldown.play("cooldown"); //play cooldown sprite in base spell entity
+			spellGraphiclist.add(sprGlobalCooldown); //add cooldown sprite to graphiclist in base spell entity
+			//BaseSpell.onGlobalCooldown = true;
+		}
+		public function RemoveGlobalCooldown():void //called at the end of cooldown animation
+		{
+			spellGraphiclist.remove(sprGlobalCooldown);
+			trace("removed global cooldown");
+			//BaseSpell.onGlobalCooldown = false;
+		}
+		
 		
 		public function AddCooldown():void //called from spellcast entity
 		{

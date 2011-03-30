@@ -79,9 +79,31 @@ package Game
 						this.world.add (new HUDMessage("cant cast while moving"));
 						this.world.remove(this);
 					}
-					else //spell is cast
+					else
 					{
-						GV.PLAYER_IS_CASTING = true;
+						
+						if (BaseSpell.onGlobalCooldown == true) //if global cooldown is on
+						{
+							trace("global cooldown on");
+							this.world.add (new HUDMessage("global cooldown"));
+							this.world.remove(this);
+						}
+						else //spell is cast
+						{
+							GV.PLAYER_IS_CASTING = true;
+							
+							var myArray:Array
+							//FP.world.getClass(BaseSpell, myArray);
+							FP.world.getClass(BaseSpell, myArray);
+							
+							//trace(myArray[1]);
+							for each (var allSpells:BaseSpell in myArray)
+							{
+								//trace("array[" + key + "] = "+ myArray[key])
+								trace(allSpells.spellName);
+								//allSpells.AddGlobalCooldown();
+							}
+						}
 					}
 				}
 			}

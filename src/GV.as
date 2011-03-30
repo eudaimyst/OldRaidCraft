@@ -4,6 +4,7 @@ package
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import Spells.Arcane;
+	import Spells.Death;
 	import Spells.Fireball
 	import Game.Enemy
 	/**
@@ -20,9 +21,11 @@ package
 		public static var PLAYER_MOVE_SPEED:int = 60;
 		public static var PLAYER_IS_CASTING:Boolean = false;
 		
+		public static var GLOBAL_COOLDOWN_TIME:Number = .5;
+		
 		public static var CHOSEN_SPELL_1:Class = Fireball;
 		public static var CHOSEN_SPELL_2:Class = Arcane;
-		public static var CHOSEN_SPELL_3:Class = Fireball;
+		public static var CHOSEN_SPELL_3:Class = Death;
 		public static var CHOSEN_SPELL_4:Class = Fireball;
 		public static var CHOSEN_SPELL_5:Class = Fireball;
 		public static var CHOSEN_SPELL_6:Class = Fireball;
