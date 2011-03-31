@@ -1,6 +1,7 @@
 package Game 
 {
 	import flash.display.BitmapData;
+	import HUD.EnemyTooltip;
 	import HUD.HUDMessage;
 	import HUD.TargetUnitFrame;
 	import net.flashpunk.Entity;
@@ -49,6 +50,15 @@ package Game
 		{
 			super.update();
 			
+			if (collidePoint(x, y, world.mouseX, world.mouseY))
+			{
+				if (world.classCount(EnemyTooltip) < 1)
+				{
+				this.world.add (new EnemyTooltip(this as Enemy));
+				}
+			}
+			
+			
 			if (Input.mousePressed)
 			{
 				
@@ -73,6 +83,7 @@ package Game
 			
 			if (enemyDead == true)
 			{
+				unitFrameInstance.UpdateFrame();
 				this.world.remove(this);
 			}
 			

@@ -85,22 +85,36 @@ package Spells
 		
 		public function CastSpell():void
 		{
-			if (onGlobalCooldown == false) //if global cooldown is not on
+			if (GV.TARGETED_ENEMY != null)
 			{
-				if (GV.PLAYER_IS_CASTING == false) //if the player is not casting
+				if (onGlobalCooldown == false) //if global cooldown is not on
 				{
-					if (onCooldown == false) //if this spell is not on cooldown
+					if (GV.PLAYER_IS_CASTING == false) //if the player is not casting
 					{
-						
-						trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
-						this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
-						
+						if (onCooldown == false) //if this spell is not on cooldown
+						{
+							if (Player.isMoving == false) //if the player is not moving
+							{
+								trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
+								this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
+							}
+							else //if the player is moving
+							{
+								if (castTime == 0) //if the spell is instant cast
+								{
+									trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
+									this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
+								}
+								else this.world.add (new HUDMessage("cant cast while moving"));
+							}
+						}
+						else this.world.add (new HUDMessage("spell is on cooldown"));
 					}
-					else this.world.add (new HUDMessage("spell is on cooldown"));
+					else this.world.add (new HUDMessage("already casting"));
 				}
-				else this.world.add (new HUDMessage("already casting"));
-			}
-			else this.world.add (new HUDMessage("global cooldown"));
+				else this.world.add (new HUDMessage("global cooldown"));
+				}
+			else this.world.add (new HUDMessage("no target"));
 		}
 		
 		public function AddGlobalCooldown():void //called from spellcast entity

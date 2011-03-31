@@ -77,46 +77,50 @@ package HUD
 
 		}
 		
-		public function UpdateFrame():void
+		public function UpdateFrame():void //called by anything that needs to update the target frame (eg. SpellCast, selecting an emey)
 		{
-			if (GV.TARGETED_ENEMY != null)
+			if (GV.TARGETED_ENEMY != null) //if an enemy is targeted
 			{
 				if (GV.TARGETED_ENEMY.isTargeted == true)
 				{
-				targetName = GV.TARGETED_ENEMY.enemyName
-				targetNameText = new Text (targetName);
-				targetNameText.x = targetHealthBar.width - targetNameText.width;
-				targetNameText.y = -targetNameText.height;
-				
-				targetHealth = new Text (String(GV.TARGETED_ENEMY.enemyCurrentHealth)); //set target health text to global target health variable
-				targetHealth.x = targetHealthBar.x - 5 - targetHealth.width;
-				targetHealth.y = targetHealthBar.y - 3;
-				targetHealthText = new Text ("HP:"); //set target health bar text
-				targetHealthText.x = targetHealth.x - targetHealthText.width;
-				targetHealthText.y = targetHealthBar.y - 3;
-				
-				targetMana = new Text (String(GV.TARGETED_ENEMY.enemyCurrentMana)); //set target mana text to global target mana variable
-				targetMana.x = targetManaBar.x - 5 - targetMana.width;
-				targetMana.y = targetManaBar.y - 3;
-				targetManaText = new Text ("MP:"); //set target mana bar text
-				targetManaText.x = targetMana.x - targetManaText.width;
-				targetManaText.y = targetManaBar.y - 3;
-				
-				targetHealthBar.scaleX = GV.TARGETED_ENEMY.enemyCurrentHealth / GV.TARGETED_ENEMY.enemyMaxHealth;
-				
-				
-				
-				//trace ("blah " + targetName);
-				//HUD.HUDMessage (targetName);
-				unitFrameGraphicList = new Graphiclist(targetHealthBar, targetManaBar, targetHealthText, targetManaText, targetHealth, targetMana, targetNameText); //set which graphics to draw
-				graphic = unitFrameGraphicList;
-				
-				graphic.scrollX = 0; //locks this entities graphic to camera
-				graphic.scrollY = 0;
-				
-				return;
+					//get new values and redraw unitframe graphics
+					
+					targetName = GV.TARGETED_ENEMY.enemyName
+					targetNameText = new Text (targetName);
+					targetNameText.x = targetHealthBar.width - targetNameText.width;
+					targetNameText.y = -targetNameText.height;
+					
+					targetHealth = new Text (String(GV.TARGETED_ENEMY.enemyCurrentHealth)); //set target health text to global target health variable
+					targetHealth.x = targetHealthBar.x - 5 - targetHealth.width;
+					targetHealth.y = targetHealthBar.y - 3;
+					targetHealthText = new Text ("HP:"); //set target health bar text
+					targetHealthText.x = targetHealth.x - targetHealthText.width;
+					targetHealthText.y = targetHealthBar.y - 3;
+					
+					targetMana = new Text (String(GV.TARGETED_ENEMY.enemyCurrentMana)); //set target mana text to global target mana variable
+					targetMana.x = targetManaBar.x - 5 - targetMana.width;
+					targetMana.y = targetManaBar.y - 3;
+					targetManaText = new Text ("MP:"); //set target mana bar text
+					targetManaText.x = targetMana.x - targetManaText.width;
+					targetManaText.y = targetManaBar.y - 3;
+					
+					targetHealthBar.scaleX = GV.TARGETED_ENEMY.enemyCurrentHealth / GV.TARGETED_ENEMY.enemyMaxHealth;
+					
+					unitFrameGraphicList = new Graphiclist(targetHealthBar, targetManaBar, targetHealthText, targetManaText, targetHealth, targetMana, targetNameText); //set which graphics to draw
+					graphic = unitFrameGraphicList;
+					
+					graphic.scrollX = 0; //locks this entities graphic to camera
+					graphic.scrollY = 0;
+					
+					//finished redrawing unitframe graphics
+					
+					if (GV.TARGETED_ENEMY.enemyCurrentHealth < 1)
+					{
+						GV.TARGETED_ENEMY.enemyDead = true;
+						GV.TARGETED_ENEMY = null;
+					}
 				}
-				else
+				else // targeted enemy in global variables does not have isTargeted = true (for deselecting targets)
 				{
 					graphic = new Graphiclist();
 					
@@ -124,57 +128,18 @@ package HUD
 					graphic.scrollY = 0;
 				}
 			}
+			else //GV.TARGETED_ENEMY = null
+			{
+				graphic = new Graphiclist();
+				
+				graphic.scrollX = 0; //locks this entities graphic to camera
+				graphic.scrollY = 0;
+			}
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			
-			/*
-			if (targetChanged == true)
-			{
-				trace("target changed");
-				targetChanged = false;
-				UpdateFrame();
-			}
-			*/
-			//UpdateFrame();
-
-			
-			
-			/*
-			if (targetedEnemy2.enemyCurrentHealth < 1)
-			{
-				targetedEnemy2.enemyDead = true;
-				this.world.remove (this);
-			}
-
-			if (targetHealth.text != String(targetedEnemy2.enemyCurrentHealth)) //if the target health has changed
-			{
-				targetHealth = new Text (String(targetedEnemy2.enemyCurrentHealth)); //update target health text
-				targetHealth.x = targetHealthText.x + targetHealthText.width ; //target health location needs to be set again
-				targetHealth.y = targetHealthBar.y - 3;
-				
-				targetHealthBar.scaleX = targetedEnemy2.enemyCurrentHealth / targetedEnemy2.enemyMaxHealth;
-				trace (targetedEnemy2.enemyCurrentHealth);
-				
-				unitFrameGraphicList =  new Graphiclist(targetHealthBar, targetManaBar, targetHealthText, targetManaText, targetHealth, targetMana, targetNameText) //set which graphics to draw
-				graphic = unitFrameGraphicList; //draw graphics
-			}
-			
-			if (targetMana.text != String(targetedEnemy2.enemyCurrentMana)) //if the target mana has changed
-			{
-				targetMana = new Text (String(targetedEnemy2.enemyCurrentMana)); //update target mana text
-				targetMana.x = targetManaText.x + targetManaText.width ; //target mana location needs to be set again
-				targetMana.y = targetManaBar.y - 3;
-				
-				targetManaBar.scaleX = targetedEnemy2.enemyCurrentMana / targetedEnemy2.enemyMaxMana;
-				targetManaBar.y = 25;
-				
-				unitFrameGraphicList =  new Graphiclist(targetHealthBar, targetManaBar, targetHealthText, targetManaText, targetHealth, targetMana, targetNameText) //set which graphics to draw
-				graphic = unitFrameGraphicList; //draw graphics
-			}
-			*/
 			
 		}
 	}

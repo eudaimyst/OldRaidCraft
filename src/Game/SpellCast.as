@@ -58,35 +58,16 @@ package Game
 		override public function added():void 
 		{
 			super.added();
-			if (GV.TARGETED_ENEMY == null) //if there is no enemy target
+			GV.PLAYER_IS_CASTING = true;
+			
+			var myArray:Array = new Array();
+			FP.world.getClass(BaseSpell, myArray); //gets all instances of BaseSpell and stores them in an array
+			
+			for each (var allSpells:BaseSpell in myArray) //for each instance of BaseSpell in the Array
 			{
-				trace("no target sellected");
-				this.world.add (new HUDMessage("you have no target"));
-				this.world.remove(this);
-			}
-			else
-			{
-				if (Player.isMoving == true) //if the player is moving
-				{
-					trace("player is moving");
-					this.world.add (new HUDMessage("cant cast while moving"));
-					this.world.remove(this);
-				}
-				else
-				{
-					GV.PLAYER_IS_CASTING = true;
-						
-					var myArray:Array = new Array();
-					FP.world.getClass(BaseSpell, myArray); //gets all instances of BaseSpell and stores them in an array
-					
-					for each (var allSpells:BaseSpell in myArray) //for each instance of BaseSpell in the Array
-					{
-						//trace(allSpells.spellName); //error checking
-						BaseSpell.onGlobalCooldown = true; //sets onGlobalCooldown for all instances of BaseSpell to true
-						allSpells.AddGlobalCooldown(); //calls AddGlobal function in all instances of BaseSpell
-					}
-					
-				}
+				//trace(allSpells.spellName); //error checking
+				BaseSpell.onGlobalCooldown = true; //sets onGlobalCooldown for all instances of BaseSpell to true
+				allSpells.AddGlobalCooldown(); //calls AddGlobal function in all instances of BaseSpell
 			}
 			
 		}
@@ -117,7 +98,7 @@ package Game
 				}
 				passedSpell.AddCooldown();
 				
-				GV.TARGETED_ENEMY.enemyCurrentHealth -= passedSpell.spellDamage;
+				GV.TARGETED_ENEMY.enemyCurrentHealth -= passedSpell.spellDamage; //deal damage to enemy
 				unitFrameInstance.UpdateFrame();
 				
 				GV.PLAYER_IS_CASTING = false;
