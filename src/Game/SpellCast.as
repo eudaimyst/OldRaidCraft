@@ -2,7 +2,6 @@ package Game
 {
 	import HUD.HUDMessage;
 	import HUD.TargetUnitFrame;
-	import Menu.MenuButton;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
@@ -28,10 +27,12 @@ package Game
 		protected var castBarText:Text;
 		protected var timeElapsed:Number;
 		protected var timeElapsedText:Text;
-		
+		private var unitFrameInstance:TargetUnitFrame;
 		
 		public function SpellCast(i:BaseSpell) //set spell cast bar graphics
 		{
+			unitFrameInstance = TargetUnitFrame.unitFrameInstance;
+			
 			passedSpell = i;
 			//trace("spell started");
 			
@@ -117,7 +118,7 @@ package Game
 				passedSpell.AddCooldown();
 				
 				GV.TARGETED_ENEMY.enemyCurrentHealth -= passedSpell.spellDamage;
-				TargetUnitFrame.targetChanged = true;
+				unitFrameInstance.UpdateFrame();
 				
 				GV.PLAYER_IS_CASTING = false;
 				trace("player no longer casting");

@@ -26,10 +26,11 @@ package HUD
 		protected var targetHealth:Text;
 		protected var targetMana:Text;
 		protected var targetNameText:Text;
-		static public var targetName:String = "blah";
 		
+		static public var targetName:String = "blah";
 		static public var targetChanged:Boolean = false;
 		
+		static public var unitFrameInstance:HUD.TargetUnitFrame;
 		
 		public function TargetUnitFrame() 
 		{
@@ -71,7 +72,7 @@ package HUD
 		override public function added():void 
 		{
 			super.added();
-			
+			unitFrameInstance = this as HUD.TargetUnitFrame;
 			
 
 		}
@@ -128,13 +129,15 @@ package HUD
 		override public function update():void 
 		{
 			super.update();
-
+			
+			/*
 			if (targetChanged == true)
 			{
 				trace("target changed");
 				targetChanged = false;
 				UpdateFrame();
 			}
+			*/
 			//UpdateFrame();
 
 			

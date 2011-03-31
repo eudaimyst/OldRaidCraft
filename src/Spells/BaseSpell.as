@@ -139,6 +139,16 @@ package Spells
 		override public function update():void 
 		{
 			super.update();
+			
+			
+			if (collidePoint(x, y, world.mouseX - FP.camera.x, world.mouseY - FP.camera.y))
+			{
+				if (world.classCount(SpellTooltip) < 1)
+				{
+				this.world.add (new SpellTooltip(this as BaseSpell));
+				}
+			}
+			
 			if (Input.mousePressed)
 			{
 				if (collidePoint(x, y, world.mouseX - FP.camera.x, world.mouseY - FP.camera.y))

@@ -15,6 +15,8 @@ package Spells
 		private var passedSpell:BaseSpell;
 		private var targetProjectileX:Number;
 		private var targetProjectileY:Number;
+		private var targetProjectileWidth:Number;
+		private var targetProjectileHeight:Number;
 		private var noTarget:Boolean = true;
 		
 		public function SpellProjectile(i:BaseSpell) 
@@ -28,6 +30,8 @@ package Spells
 			
 			targetProjectileX = GV.TARGETED_ENEMY.x + GV.TARGETED_ENEMY.halfWidth; //sets projectile target to current enemy (needed incase enemy changes)
 			targetProjectileY =  GV.TARGETED_ENEMY.y + GV.TARGETED_ENEMY.halfHeight;
+			targetProjectileWidth = GV.TARGETED_ENEMY.width;
+			targetProjectileHeight = GV.TARGETED_ENEMY.height;
 			
 			x = GV.PLAYER_ENTITY.x + GV.PLAYER_ENTITY.halfWidth; //start position at players position
 			y = GV.PLAYER_ENTITY.y + GV.PLAYER_ENTITY.halfHeight;
@@ -38,7 +42,7 @@ package Spells
 			
 			super.update();
 			
-			if (collideRect(x, y, targetProjectileX, targetProjectileY, GV.TARGETED_ENEMY.width, GV.TARGETED_ENEMY.height)) //if colliding with box at enemy location, enemy dimensions
+			if (collideRect(x, y, targetProjectileX, targetProjectileY, targetProjectileWidth, targetProjectileHeight)) //if colliding with box at enemy location, enemy dimensions
 			{
 				this.world.remove(this); //remove this entity
 			}

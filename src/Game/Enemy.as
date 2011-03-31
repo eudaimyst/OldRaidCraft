@@ -26,6 +26,8 @@ package Game
 		
 		public var isTargeted:Boolean;
 		
+		private var unitFrameInstance:TargetUnitFrame;
+		
 		public function Enemy(locX:Number, locY:Number) 
 		{
 			this.x = locX;
@@ -52,9 +54,11 @@ package Game
 				
 				if (collidePoint(x, y, world.mouseX, world.mouseY))
 				{
-					TargetUnitFrame.targetChanged = true;
+					
 					GV.TARGETED_ENEMY = this as Enemy; //set global variable targeted enemy to this instance of this enemy
 					isTargeted = true;
+					unitFrameInstance = TargetUnitFrame.unitFrameInstance;
+					unitFrameInstance.UpdateFrame();
 				}
 				/*
 				else

@@ -38,6 +38,7 @@ package HUD
 			MouseCursor1 = new MouseCursorEntity()
 			this.world.add (MouseCursor1);
 			
+			//add empty actionbar buttons
 			this.world.add (new HUD.ActionBarSpell());
 			this.world.add (new HUD.ActionBarSpell());
 			this.world.add (new HUD.ActionBarSpell());
@@ -45,10 +46,9 @@ package HUD
 			this.world.add (new HUD.ActionBarSpell());
 			this.world.add (new HUD.ActionBarSpell());
 			
+			//add chosen spells to actionbar
 			this.world.add (new GV.CHOSEN_SPELL_1(1));
-			
 			this.world.add (new GV.CHOSEN_SPELL_2(2));
-			
 			this.world.add (new GV.CHOSEN_SPELL_3(3));
 			/*
 			this.world.add (new GV.CHOSEN_SPELL_4(4));
