@@ -26,13 +26,15 @@ package Spells
 		public static var onGlobalCooldown:Boolean = false;
 		
 		//spell variables, to be set in entities which extend this
-		public var spellName:String;
-		public var castTime:Number;
-		public var spellDamage:Number;
+		public var spellName:String = "Default Spell";
+		public var castTime:Number = 3;
+		public var spellDamage:Number = 0;
 		public var cooldownTime:Number = .5; //default cooldown time for all spells
+		public var manaCost:Number = 0;
+		public var healthCost:Number = 0;
 		
 		//projectile info
-		public var hasProjectile:Boolean;
+		public var hasProjectile:Boolean = false;
 		public var projectileImage:Image;
 		public var projectileSpeed:Number;
 		
@@ -85,36 +87,44 @@ package Spells
 		
 		public function CastSpell():void
 		{
-			if (GV.TARGETED_ENEMY != null)
+			if (GV.PLAYER_MANA_CURRENT > 0) //if mana is not empty
 			{
-				if (onGlobalCooldown == false) //if global cooldown is not on
+				if (GV.TARGETED_ENEMY != null)
 				{
-					if (GV.PLAYER_IS_CASTING == false) //if the player is not casting
+					if (onGlobalCooldown == false) //if global cooldown is not on
 					{
-						if (onCooldown == false) //if this spell is not on cooldown
+						if (GV.PLAYER_IS_CASTING == false) //if the player is not casting
 						{
-							if (Player.isMoving == false) //if the player is not moving
+							if (onCooldown == false) //if this spell is not on cooldown
 							{
-								trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
-								this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
-							}
-							else //if the player is moving
-							{
-								if (castTime == 0) //if the spell is instant cast
+								if (FP.world.classCount(SpellCast) < 1) //if spellCast has not already been added. Error checking incase 2 spells are pressed at the same time
 								{
+									if (Player.isMoving == false) //if the player is not moving
+									{
 									trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
 									this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
+									}
+									else //if the player is moving
+									{
+										if (castTime == 0) //if the spell is instant cast
+										{
+											trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
+											this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
+										}
+										else this.world.add (new HUDMessage("cant cast while moving")); // if the player is moving and the cast time is not 0
+									}
 								}
-								else this.world.add (new HUDMessage("cant cast while moving"));
+								else this.world.add (new HUDMessage("2 spells pressed at the same time... fail"));
 							}
+							else this.world.add (new HUDMessage("spell is on cooldown"));
 						}
-						else this.world.add (new HUDMessage("spell is on cooldown"));
+						else this.world.add (new HUDMessage("already casting"));
 					}
-					else this.world.add (new HUDMessage("already casting"));
+					else this.world.add (new HUDMessage("global cooldown"));
 				}
-				else this.world.add (new HUDMessage("global cooldown"));
-				}
-			else this.world.add (new HUDMessage("no target"));
+				else this.world.add (new HUDMessage("no target"));
+			}
+		else {GV.PLAYER_MANA_CURRENT = 0; this.world.add (new HUDMessage("out of mana"));}
 		}
 		
 		public function AddGlobalCooldown():void //called from spellcast entity

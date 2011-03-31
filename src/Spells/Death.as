@@ -18,6 +18,7 @@ package Spells
 			castTime = 0;
 			spellDamage = 5;
 			cooldownTime = 0;
+			manaCost = 5;
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

@@ -24,6 +24,7 @@ package Spells
 		protected var spellDamageText:Text;
 		protected var spellCastTimeText:Text;
 		protected var spellCoolDownText:Text;
+		protected var spellCostText:Text;
 		
 		protected var tooltipBackground:Image;
 		
@@ -43,18 +44,23 @@ package Spells
 			
 			spellDamageText = new Text ("Damage: " + passedSpell.spellDamage);
 			spellDamageText.size = 12;
-			spellDamageText.y = spellNameText.scaledHeight;
+			spellDamageText.y = spellNameText.textHeight;
 			
-			spellCastTimeText = new Text ("Cast Time: " + passedSpell.castTime + "s")
-			spellCastTimeText.y = spellDamageText.y + spellDamageText.scaledHeight;
+			spellCostText = new Text ("ManaCost: " + passedSpell.manaCost)
+			spellCostText.size = 12;
+			spellCostText.y = spellNameText.textHeight * 2;
+			
+			spellCastTimeText = new Text ("CastTime: " + passedSpell.castTime + "s")
 			spellCastTimeText.size = 12;
+			spellCastTimeText.y = spellNameText.textHeight * 3;
 			
-			spellCoolDownText = new Text ("Cooldown: " + passedSpell.cooldownTime + "s")
-			spellCoolDownText.y = spellCastTimeText.y + spellCastTimeText.scaledHeight;
+			spellCoolDownText = new Text ("CoolDown: " + passedSpell.cooldownTime + "s")
 			spellCoolDownText.size = 12;
+			spellCoolDownText.y = spellNameText.textHeight * 4;
 			
 			
-			tooltipGraphiclist = new Graphiclist (tooltipBackground, spellNameText, spellDamageText, spellCastTimeText, spellCoolDownText);
+			
+			tooltipGraphiclist = new Graphiclist (tooltipBackground, spellNameText, spellCostText, spellDamageText, spellCastTimeText, spellCoolDownText);
 			
 			graphic = tooltipGraphiclist;
 			

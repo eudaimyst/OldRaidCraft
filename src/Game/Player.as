@@ -28,6 +28,8 @@ package Game
 		static public var xLoc:Number;
 		static public var yLoc:Number;
 		
+		private var inLava:Boolean = false;
+		
 		public function Player()
 		{
 			playerDead = false;
@@ -72,12 +74,12 @@ package Game
 			GV.PLAYER_MANA_MAX = int(playerMaxMana);
 		}
 		
+		
+		
 		override public function update():void 
 		{
-			if (collide("level", x, y))
+			if (inLava == true)
 			{
-				//colliding with level
-				trace("collision!");//test
 				GV.PLAYER_HEALTH_CURRENT -= 1;
 			}
 			
@@ -86,6 +88,8 @@ package Game
 				isMoving = true;
 				
 				movementDelta = FP.elapsed * GV.PLAYER_MOVE_SPEED; // speed at which to move the player
+				
+				
 				
 				if (Input.check(Key.W))
 				{
@@ -113,6 +117,16 @@ package Game
 					FP.camera.y = this.y - FP.screen.height * 2 / 3;
 				}
 				xLoc = x; yLoc = y;
+				
+				if (collide("lava", x, y)) //if player is colliding with lava
+				{
+					trace("collision!");//test
+					inLava = true;
+				}
+				else
+				{
+					inLava = false;
+				}
 			}
 			else
 			{

@@ -17,7 +17,7 @@ package Spells
 			spellName = "Arcane";
 			castTime = .5;
 			spellDamage = 20;
-			
+			manaCost = 10;
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

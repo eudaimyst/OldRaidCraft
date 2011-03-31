@@ -29,6 +29,8 @@ package Game
 		
 		private var unitFrameInstance:TargetUnitFrame;
 		
+		private var distanceToPlayer:Number = 100;
+		
 		public function Enemy(locX:Number, locY:Number) 
 		{
 			this.x = locX;
@@ -45,10 +47,21 @@ package Game
 			super.added();
 		}
 		
+		public function getDistance():void
+		{
+			distanceToPlayer = FP.distance(this.x + this.halfWidth, this.y + this.halfHeight, Player.xLoc, Player.yLoc);
+			if (distanceToPlayer < 224)
+			{
+				trace(distanceToPlayer);
+				moveTowards(Player.xLoc, Player.yLoc, FP.elapsed * 35)
+			}
+		}
+		
 		
 		override public function update():void 
 		{
 			super.update();
+			getDistance();
 			
 			if (collidePoint(x, y, world.mouseX, world.mouseY))
 			{
@@ -58,10 +71,8 @@ package Game
 				}
 			}
 			
-			
 			if (Input.mousePressed)
 			{
-				
 				if (collidePoint(x, y, world.mouseX, world.mouseY))
 				{
 					
@@ -70,18 +81,9 @@ package Game
 					unitFrameInstance = TargetUnitFrame.unitFrameInstance;
 					unitFrameInstance.UpdateFrame();
 				}
-				/*
-				else
-				{
-					TargetUnitFrame.targetChanged = true;
-					//GV.TARGETED_ENEMY = null;
-					isTargeted = false;
-				}
-				*/
-				
 			}
 			
-			if (enemyDead == true)
+			if (enemyDead)
 			{
 				unitFrameInstance.UpdateFrame();
 				this.world.remove(this);

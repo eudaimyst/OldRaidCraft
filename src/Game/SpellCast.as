@@ -101,6 +101,8 @@ package Game
 				GV.TARGETED_ENEMY.enemyCurrentHealth -= passedSpell.spellDamage; //deal damage to enemy
 				unitFrameInstance.UpdateFrame();
 				
+				GV.PLAYER_MANA_CURRENT -= passedSpell.manaCost;
+				
 				GV.PLAYER_IS_CASTING = false;
 				trace("player no longer casting");
 				
