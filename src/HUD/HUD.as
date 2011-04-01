@@ -50,8 +50,8 @@ package HUD
 			this.world.add (new GV.CHOSEN_SPELL_1(1));
 			this.world.add (new GV.CHOSEN_SPELL_2(2));
 			this.world.add (new GV.CHOSEN_SPELL_3(3));
-			/*
 			this.world.add (new GV.CHOSEN_SPELL_4(4));
+			/*
 			this.world.add (new GV.CHOSEN_SPELL_5(5));
 			this.world.add (new GV.CHOSEN_SPELL_6(6));
 			*/

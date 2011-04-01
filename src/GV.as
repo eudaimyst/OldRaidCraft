@@ -7,6 +7,7 @@ package
 	import Spells.Death;
 	import Spells.Fireball
 	import Game.Enemy
+	import Spells.Frost;
 	/**
 	 * ...
 	 * @author skipgamer
@@ -26,7 +27,7 @@ package
 		public static var CHOSEN_SPELL_1:Class = Fireball;
 		public static var CHOSEN_SPELL_2:Class = Arcane;
 		public static var CHOSEN_SPELL_3:Class = Death;
-		public static var CHOSEN_SPELL_4:Class = Fireball;
+		public static var CHOSEN_SPELL_4:Class = Frost;
 		public static var CHOSEN_SPELL_5:Class = Fireball;
 		public static var CHOSEN_SPELL_6:Class = Fireball;
 		

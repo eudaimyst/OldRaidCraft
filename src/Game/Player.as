@@ -80,7 +80,7 @@ package Game
 		{
 			if (inLava == true)
 			{
-				GV.PLAYER_HEALTH_CURRENT -= 1;
+				GV.PLAYER_HEALTH_CURRENT -= .1;
 			}
 			
 			if (Input.check("MovePlayer")) //send player data to camera mover entity

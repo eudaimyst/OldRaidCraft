@@ -33,6 +33,13 @@ package Spells
 		public var manaCost:Number = 0;
 		public var healthCost:Number = 0;
 		
+		//buff info
+		public var hasBuff:Boolean = false;
+		public var specialBuff:Boolean = false;
+		public var buffTime:Number = 0;
+		public var buffTicks:Number = 0;
+		public var buffDmg:Number = 0;
+		
 		//projectile info
 		public var hasProjectile:Boolean = false;
 		public var projectileImage:Image;
@@ -83,6 +90,11 @@ package Spells
 			graphic.scrollX = 0;
 			graphic.scrollY = 0;
 			
+		}
+		
+		public function BuffEffect ():void
+		{
+			this.world.add (new HUDMessage("Buff Started"));
 		}
 		
 		public function CastSpell():void
@@ -142,7 +154,7 @@ package Spells
 		}
 		
 		
-		public function AddCooldown():void //called from spellcast entity
+		public function AddCooldown():void //called from spellcast entity when spell is started
 		{
 			if (cooldownTime != 0) // if the spell has a cooldown time, if not, do nothing
 			{

@@ -22,6 +22,8 @@ package Game
 		public var enemyMaxMana:Number;
 		public var enemyDead:Boolean;
 		public var enemyName:String;
+		public var defaultEnemySpeed:Number = 35;
+		public var currentEnemySpeed:Number;
 		
 		public var enemyImage:Image;
 		
@@ -33,6 +35,8 @@ package Game
 		
 		public function Enemy(locX:Number, locY:Number) 
 		{
+			currentEnemySpeed = defaultEnemySpeed;
+			
 			this.x = locX;
 			this.y = locY;
 		}
@@ -53,7 +57,7 @@ package Game
 			if (distanceToPlayer < 224)
 			{
 				trace(distanceToPlayer);
-				moveTowards(Player.xLoc, Player.yLoc, FP.elapsed * 35)
+				moveTowards(Player.xLoc, Player.yLoc, FP.elapsed * currentEnemySpeed)
 			}
 		}
 		

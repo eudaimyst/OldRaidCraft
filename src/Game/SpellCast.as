@@ -96,6 +96,11 @@ package Game
 				{
 					this.world.add (new SpellProjectile(passedSpell as BaseSpell)); 
 				}
+				
+				if (passedSpell.hasBuff == true)
+				{
+					passedSpell.BuffEffect();
+				}
 				passedSpell.AddCooldown();
 				
 				GV.TARGETED_ENEMY.enemyCurrentHealth -= passedSpell.spellDamage; //deal damage to enemy
