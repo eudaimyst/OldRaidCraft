@@ -18,16 +18,18 @@ package Spells
 			spellName = "Frost";
 			castTime = 0;
 			spellDamage = 10;
-			cooldownTime = 3;
+			cooldownTime = 1.5;
 			manaCost = 20;
-			spellIcon = new Image(GC.GFX_SPELL_ICON_FROST);
+			
+			spellIconGraphic = GC.GFX_SPELL_ICON_FROST;
+			spellIcon = new Image(spellIconGraphic);
 			
 			hasProjectile = true;
 			projectileImage = new Image(new BitmapData(4, 8, false, 0x0090ff));
 			projectileSpeed = FP.elapsed * 1000;
 			
 			hasBuff = true;
-			specialBuff = true;
+			buffTime = 3;
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

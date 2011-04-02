@@ -17,7 +17,9 @@ package Spells
 			castTime = .5;
 			spellDamage = 20;
 			manaCost = 10;
-			spellIcon = new Image(GC.GFX_SPELL_ICON_ARCANE);
+			
+			spellIconGraphic = GC.GFX_SPELL_ICON_ARCANE;
+			spellIcon = new Image(spellIconGraphic);
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

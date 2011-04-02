@@ -22,6 +22,7 @@ package Spells
 			cooldownTime = 3;
 			manaCost = 20;
 			
+			
 			spellIconGraphic = GC.GFX_SPELL_ICON_FIRE;
 			spellIcon = new Image(spellIconGraphic);
 			
@@ -30,6 +31,7 @@ package Spells
 			projectileSpeed = FP.elapsed * 1000;
 			
 			hasBuff = true; //testing
+			buffTime = 6;
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);
