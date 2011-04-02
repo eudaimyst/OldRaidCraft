@@ -9,7 +9,6 @@ package Spells
 	public class Death extends BaseSpell
 	{
 		
-		protected var spellIcon:Image = new Image(GC.GFX_SPELL_ICON_DEATH);
 		
 		public function Death(i:Number) 
 		{
@@ -19,6 +18,7 @@ package Spells
 			spellDamage = 5;
 			cooldownTime = 0;
 			manaCost = 5;
+			spellIcon = new Image(GC.GFX_SPELL_ICON_DEATH);
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

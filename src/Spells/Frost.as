@@ -11,7 +11,6 @@ package Spells
 	 */
 	public class Frost extends BaseSpell
 	{
-		private var spellIcon:Image = new Image(GC.GFX_SPELL_ICON_FROST);
 		
 		public function Frost(i:Number) 
 		{
@@ -21,6 +20,7 @@ package Spells
 			spellDamage = 10;
 			cooldownTime = 3;
 			manaCost = 20;
+			spellIcon = new Image(GC.GFX_SPELL_ICON_FROST);
 			
 			hasProjectile = true;
 			projectileImage = new Image(new BitmapData(4, 8, false, 0x0090ff));

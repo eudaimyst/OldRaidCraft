@@ -1,5 +1,7 @@
 package Spells 
 {
+	import adobe.utils.CustomActions;
+	import flash.display.BitmapData;
 	import Game.Player;
 	import Game.SpellCast;
 	import HUD.ActionBarSpell;
@@ -46,6 +48,8 @@ package Spells
 		public var projectileSpeed:Number;
 		
 		//graphics
+		public var spellIcon:Image;
+		public var spellIconGraphic:Class;
 		protected var spellButton:Image = new Image(GC.GFX_SPELL_BUTTON_NORMAL);
 		public var sprCooldown:Spritemap = new Spritemap(GC.GFX_COOLDOWN, 32, 32, RemoveCooldown);
 		public var sprGlobalCooldown:Spritemap = new Spritemap(GC.GFX_COOLDOWN, 32, 32, RemoveGlobalCooldown);
@@ -95,6 +99,7 @@ package Spells
 		public function BuffEffect ():void
 		{
 			this.world.add (new HUDMessage("Buff Started"));
+			FP.world.add (new BaseBuff (this as BaseSpell));
 		}
 		
 		public function CastSpell():void
@@ -175,7 +180,6 @@ package Spells
 		override public function update():void 
 		{
 			super.update();
-			
 			
 			if (collidePoint(x, y, world.mouseX - FP.camera.x, world.mouseY - FP.camera.y))
 			{

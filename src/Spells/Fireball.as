@@ -11,7 +11,7 @@ package Spells
 	 */
 	public class Fireball extends BaseSpell
 	{
-		private var spellIcon:Image = new Image(GC.GFX_SPELL_ICON_FIRE);
+		
 		
 		public function Fireball(i:Number) 
 		{
@@ -22,9 +22,14 @@ package Spells
 			cooldownTime = 3;
 			manaCost = 20;
 			
+			spellIconGraphic = GC.GFX_SPELL_ICON_FIRE;
+			spellIcon = new Image(spellIconGraphic);
+			
 			hasProjectile = true;
 			projectileImage = new Image(new BitmapData(4, 8, false, 0xff9000));
 			projectileSpeed = FP.elapsed * 1000;
+			
+			hasBuff = true; //testing
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

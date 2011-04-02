@@ -9,7 +9,6 @@ package Spells
 	public class Arcane extends BaseSpell
 	{
 		
-		protected var spellIcon:Image = new Image(GC.GFX_SPELL_ICON_ARCANE);
 		
 		public function Arcane(i:Number) 
 		{
@@ -18,6 +17,7 @@ package Spells
 			castTime = .5;
 			spellDamage = 20;
 			manaCost = 10;
+			spellIcon = new Image(GC.GFX_SPELL_ICON_ARCANE);
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);
