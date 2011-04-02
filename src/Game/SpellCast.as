@@ -97,6 +97,7 @@ package Game
 					this.world.add (new SpellProjectile(passedSpell as BaseSpell)); 
 				}
 				
+				//if this spell has a buff
 				if (passedSpell.hasBuff == true)
 				{
 					passedSpell.BuffEffect();

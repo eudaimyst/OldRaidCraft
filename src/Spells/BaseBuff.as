@@ -1,5 +1,6 @@
 package Spells 
 {
+	import Game.Enemy;
 	import HUD.HUDMessage;
 	import HUD.TargetUnitFrame;
 	import net.flashpunk.Entity;
@@ -21,13 +22,17 @@ package Spells
 		private var timeElapsed:Number = 0;
 		private var buffIcon:Image;
 		
+		private var ticksPassed:Number = 1;
+		
 		private var buffPos:Number = 0;
 		
 		private var passedSpell:BaseSpell;
+		private var targetedEnemy:Enemy; //targeted Enemy when buff is started this will not change when GV.TARETED_ENEMY changes
 		
-		public function BaseBuff(i:BaseSpell) 
+		public function BaseBuff(i:BaseSpell, j:Enemy) 
 		{
 			passedSpell = i;
+			targetedEnemy = j;
 			
 			buffIcon = new Image(passedSpell.spellIconGraphic);
 			
@@ -99,6 +104,25 @@ package Spells
 					allBuffs.buffPos -= 1; //change the buffPos of all buffs
 				}
 			}
+			else
+			{
+				if (timeElapsed > passedSpell.buffTime / (passedSpell.buffTicks - ticksPassed))
+				{
+					trace("tick");
+					ticksPassed += 1
+					targetedEnemy.enemyCurrentHealth -= passedSpell.buffDmg;
+					targetedEnemy.update();
+					
+					
+				}
+			}
+			
+			if (targetedEnemy != GV.TARGETED_ENEMY) //if the targeted enemy when the spell is cast is not equal to the current targeted enemy, hide the entity
+			{
+				graphic.visible = false;
+			}
+			else graphic.visible = true;
+			
 			super.update();
 		}
 		

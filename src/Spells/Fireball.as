@@ -32,6 +32,8 @@ package Spells
 			
 			hasBuff = true; //testing
 			buffTime = 6;
+			buffTicks = 6;
+			buffDmg = 10;
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);

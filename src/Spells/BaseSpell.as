@@ -96,10 +96,11 @@ package Spells
 			
 		}
 		
+		//called when spell finishes casting by SpellCast
 		public function BuffEffect ():void
 		{
 			this.world.add (new HUDMessage("Buff Started"));
-			FP.world.add (new BaseBuff (this as BaseSpell));
+			FP.world.add (new BaseBuff (this as BaseSpell, GV.TARGETED_ENEMY));
 		}
 		
 		public function CastSpell():void
