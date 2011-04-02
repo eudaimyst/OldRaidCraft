@@ -25,6 +25,7 @@ package Spells
 		protected var spellCastTimeText:Text;
 		protected var spellCoolDownText:Text;
 		protected var spellCostText:Text;
+		protected var spellBuffText:Text;
 		
 		protected var tooltipBackground:Image;
 		
@@ -58,9 +59,12 @@ package Spells
 			spellCoolDownText.size = 12;
 			spellCoolDownText.y = spellNameText.textHeight * 4;
 			
+			spellBuffText = new Text (passedSpell.buffText)
+			spellBuffText.size = 12;
+			spellBuffText.y = spellNameText.textHeight * 5;
 			
 			
-			tooltipGraphiclist = new Graphiclist (tooltipBackground, spellNameText, spellCostText, spellDamageText, spellCastTimeText, spellCoolDownText);
+			tooltipGraphiclist = new Graphiclist (tooltipBackground, spellNameText, spellCostText, spellDamageText, spellCastTimeText, spellCoolDownText, spellBuffText);
 			
 			graphic = tooltipGraphiclist;
 			

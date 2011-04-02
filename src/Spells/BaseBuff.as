@@ -29,6 +29,8 @@ package Spells
 		private var passedSpell:BaseSpell;
 		private var targetedEnemy:Enemy; //targeted Enemy when buff is started this will not change when GV.TARETED_ENEMY changes
 		
+		private var unitFrameInstance:TargetUnitFrame;
+		
 		public function BaseBuff(i:BaseSpell, j:Enemy) 
 		{
 			passedSpell = i;
@@ -39,7 +41,7 @@ package Spells
 			buffBackground.scale = .5;
 			buffIcon.scale = .5;
 			
-			sprBuffCooldown.add("cooldown", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 32 / passedSpell.buffTime, true);
+			sprBuffCooldown.add("cooldown", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 32 / (passedSpell.buffTickTime * passedSpell.buffTicks), true);
 			sprBuffCooldown.scale = .5;
 			sprBuffCooldown.alpha = .5;
 			sprBuffCooldown.color = 0x000000;
@@ -91,10 +93,9 @@ package Spells
 			
 			MoveBuffs();
 			
-			if (timeElapsed > passedSpell.buffTime)
+			if (ticksPassed > passedSpell.buffTicks) //if buff runs out
 			{
-				this.world.add (new HUDMessage("buff ran out"));
-				this.world.remove(this);
+				passedSpell.BuffEffectRemoved(targetedEnemy);
 				
 				var myArray:Array = new Array();
 				FP.world.getClass(BaseBuff, myArray); //gets all instances of BaseBuff and stores them in an array
@@ -103,16 +104,16 @@ package Spells
 				{
 					allBuffs.buffPos -= 1; //change the buffPos of all buffs
 				}
+				this.world.remove(this);
 			}
 			else
 			{
-				if (timeElapsed > passedSpell.buffTime / (passedSpell.buffTicks - ticksPassed))
+				if (timeElapsed > passedSpell.buffTickTime * ticksPassed)
 				{
 					trace("tick");
 					ticksPassed += 1
 					targetedEnemy.enemyCurrentHealth -= passedSpell.buffDmg;
-					targetedEnemy.update();
-					
+					TargetUnitFrame.unitFrameInstance.UpdateFrame();
 					
 				}
 			}

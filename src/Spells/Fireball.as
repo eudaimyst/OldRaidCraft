@@ -21,6 +21,7 @@ package Spells
 			spellDamage = 100;
 			cooldownTime = 3;
 			manaCost = 20;
+			buffText = "60dmg over 6s";
 			
 			
 			spellIconGraphic = GC.GFX_SPELL_ICON_FIRE;
@@ -30,8 +31,9 @@ package Spells
 			projectileImage = new Image(new BitmapData(4, 8, false, 0xff9000));
 			projectileSpeed = FP.elapsed * 1000;
 			
-			hasBuff = true; //testing
-			buffTime = 6;
+			hasBuff = true;
+			//buffTime = 6;
+			buffTickTime = 1;
 			buffTicks = 6;
 			buffDmg = 10;
 			

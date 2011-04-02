@@ -2,6 +2,7 @@ package Spells
 {
 	import adobe.utils.CustomActions;
 	import flash.display.BitmapData;
+	import Game.Enemy;
 	import Game.Player;
 	import Game.SpellCast;
 	import HUD.ActionBarSpell;
@@ -38,9 +39,10 @@ package Spells
 		//buff info
 		public var hasBuff:Boolean = false;
 		public var specialBuff:Boolean = false;
-		public var buffTime:Number = 0;
+		public var buffTickTime:Number = 0; //time between buff ticks
 		public var buffTicks:Number = 0;
 		public var buffDmg:Number = 0;
+		public var buffText:String = "";
 		
 		//projectile info
 		public var hasProjectile:Boolean = false;
@@ -101,6 +103,12 @@ package Spells
 		{
 			this.world.add (new HUDMessage("Buff Started"));
 			FP.world.add (new BaseBuff (this as BaseSpell, GV.TARGETED_ENEMY));
+		}
+		
+		//called when buff finishes by BaseBuff
+		public function BuffEffectRemoved (targetedEnemy:Enemy):void
+		{
+			this.world.add (new HUDMessage("buff ran out"));
 		}
 		
 		public function CastSpell():void

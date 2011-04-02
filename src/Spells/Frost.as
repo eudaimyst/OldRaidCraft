@@ -1,5 +1,6 @@
 package Spells 
 {
+	import Game.Enemy;
 	import net.flashpunk.Entity
 	import net.flashpunk.graphics.Image
 	import flash.display.BitmapData
@@ -29,18 +30,30 @@ package Spells
 			projectileSpeed = FP.elapsed * 1000;
 			
 			hasBuff = true;
-			buffTime = 3;
+			buffTicks = 1;
+			buffTickTime = 3;
+			buffDmg = 0;
+			buffText = "slows 50% for 3s"
 			
 			spellIcon.scale = 2;
 			spellGraphiclist.add(spellIcon);
 			
 		}
 		
+		//used for creating special buff effects
+		
 		override public function BuffEffect():void 
 		{
 			super.BuffEffect();
 			GV.TARGETED_ENEMY.currentEnemySpeed = GV.TARGETED_ENEMY.defaultEnemySpeed / 2;
-			
+		}
+		
+		
+		
+		override public function BuffEffectRemoved (targetedEnemy:Enemy):void
+		{
+			super.BuffEffectRemoved(targetedEnemy);
+			targetedEnemy.currentEnemySpeed = targetedEnemy.defaultEnemySpeed;
 		}
 		
 		
