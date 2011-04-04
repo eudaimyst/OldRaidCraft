@@ -8,6 +8,7 @@ package Game
 	import net.flashpunk.FP;
 	import flash.display.BitmapData;
 	import net.flashpunk.graphics.Text;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.World;
 	import Spells.BaseSpell;
 	import Spells.SpellProjectile;
@@ -28,6 +29,7 @@ package Game
 		protected var timeElapsed:Number;
 		protected var timeElapsedText:Text;
 		private var unitFrameInstance:TargetUnitFrame;
+		private var sfxCast:Sfx = new Sfx(GC.SFX_SPELL_CAST);
 		
 		public function SpellCast(i:BaseSpell) //set spell cast bar graphics
 		{
@@ -70,6 +72,8 @@ package Game
 				allSpells.AddGlobalCooldown(); //calls AddGlobal function in all instances of BaseSpell
 			}
 			
+			//sfxCast.loop(); //play cast sound effect
+			
 		}
 		
 		override public function update():void 
@@ -92,6 +96,8 @@ package Game
 			}
 			else // if spell has finished casting
 			{
+				//sfxCast.stop(); //stop sound effect
+				
 				if (passedSpell.hasProjectile == true) //if spell has a projectile
 				{
 					this.world.add (new SpellProjectile(passedSpell as BaseSpell)); 

@@ -30,8 +30,10 @@ package Game
 		
 		private var inLava:Boolean = false;
 		
-		public function Player()
+		public function Player(x:Number,y:Number)
 		{
+			super(x, y);
+			
 			playerDead = false;
 			playerMaxHealth = 1000;
 			playerMaxMana = 500;
@@ -45,7 +47,7 @@ package Game
 			graphic = new Graphiclist(playerImage);
 			
 			
-			x = 400; y = 600; xLoc = x; yLoc = y;
+			xLoc = x; yLoc = y;
 			
 			
 			FP.camera.x = this.x - FP.screen.width / 2;

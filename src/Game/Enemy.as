@@ -69,9 +69,18 @@ package Game
 			getDistance();
 			if (collide(GC.TYPE_ENEMY, x, y))
 			{
-				var myArray:Array = new Array;
+				var myArray:Array = new Array();
+				collideInto(GC.TYPE_ENEMY, x, y, myArray) //store each enemy entity this entity is colliding with in the array
 				
-				moveTowards(x - (Player.xLoc - x), y - (Player.yLoc - y), FP.elapsed * currentEnemySpeed)
+				for each (var collidingEnemies:Enemy in myArray) //for each instance of Enemy in the Array
+				{
+					//trace(allSpells.spellName); //error checking
+					moveTowards(x - (collidingEnemies.x - x), y - (collidingEnemies.y - y), FP.elapsed * currentEnemySpeed) //move this entity away from any entity in the array
+				}
+				
+				
+				
+				//moveTowards(x - (Player.xLoc - x), y - (Player.yLoc - y), FP.elapsed * currentEnemySpeed)// move this entity away from the player
 				trace("colliding with enemy");
 			}
 			else

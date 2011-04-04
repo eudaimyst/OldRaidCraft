@@ -44,7 +44,7 @@ package
 		
 		// enemies
 		
-		[Embed(source = '../assets/dragon.png')]
+		[Embed(source = '../assets/portal.png')]
 		public static const GFX_ENEMY_PORTAL:Class;
 		
 		[Embed(source = '../assets/dragon.png')]
@@ -93,6 +93,11 @@ package
 		
 		[Embed(source = '../assets/spell_icon_lightning.png')]
 		public static const GFX_SPELL_ICON_LIGHTNING:Class;
+		
+		//sound effects
+		
+		[Embed(source = '../assets/rc-cast-test.mp3')]
+		public static const SFX_SPELL_CAST:Class;
 		
 	}
 
