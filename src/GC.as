@@ -45,6 +45,9 @@ package
 		// enemies
 		
 		[Embed(source = '../assets/dragon.png')]
+		public static const GFX_ENEMY_PORTAL:Class;
+		
+		[Embed(source = '../assets/dragon.png')]
 		public static const GFX_ENEMY_DRAGON:Class;
 		
 		// mouse icon

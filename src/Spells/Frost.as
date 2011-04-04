@@ -21,6 +21,7 @@ package Spells
 			spellDamage = 10;
 			cooldownTime = 1.5;
 			manaCost = 20;
+			spellRange = 4;
 			
 			spellIconGraphic = GC.GFX_SPELL_ICON_FROST;
 			spellIcon = new Image(spellIconGraphic);

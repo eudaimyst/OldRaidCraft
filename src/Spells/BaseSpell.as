@@ -35,6 +35,7 @@ package Spells
 		public var cooldownTime:Number = .5; //default cooldown time for all spells
 		public var manaCost:Number = 0;
 		public var healthCost:Number = 0;
+		public var spellRange:Number = 8; //set in tiles, 32 pixels per tile, default 8 tiles
 		
 		//buff info
 		public var hasBuff:Boolean = false;
@@ -53,6 +54,7 @@ package Spells
 		public var spellIcon:Image;
 		public var spellIconGraphic:Class;
 		protected var spellButton:Image = new Image(GC.GFX_SPELL_BUTTON_NORMAL);
+		protected var rangeFade:Image = new Image(new BitmapData(32, 32, false, 0xff0000));
 		public var sprCooldown:Spritemap = new Spritemap(GC.GFX_COOLDOWN, 32, 32, RemoveCooldown);
 		public var sprGlobalCooldown:Spritemap = new Spritemap(GC.GFX_COOLDOWN, 32, 32, RemoveGlobalCooldown);
 		
@@ -89,6 +91,7 @@ package Spells
 			sprGlobalCooldown.alpha = .5;
 			sprGlobalCooldown.color = 0x000000;
 			
+			
 			//spellbutton graphic
 			this.x = actionbarNumber * spellButton.scaledWidth + 10 * actionbarNumber - spellButton.scaledWidth;
 			this.y = FP.screen.height - spellButton.scaledHeight - 10;
@@ -111,46 +114,67 @@ package Spells
 			this.world.add (new HUDMessage("buff ran out"));
 		}
 		
+		//called on update, checks if this player is in this spells range, if not, add a red semi-tranparent graphic
+		public function RangeCheck ():void
+		{
+			var distance:Number = 0;
+			if (GV.TARGETED_ENEMY != null)
+			{
+				if (GV.TARGETED_ENEMY.isTargeted) distance = GV.TARGETED_ENEMY.getDistance();
+			}
+			
+			if (distance <= spellRange * 32) //if distance to enemy is less than spell range
+			{
+				spellButton.color = 0xffffff;
+			}
+			else spellButton.color = 0xff0000;
+		}
+		
 		public function CastSpell():void
 		{
-			if (GV.PLAYER_MANA_CURRENT > 0) //if mana is not empty
+			if (GV.TARGETED_ENEMY != null) //if there has been an enemy selected
 			{
-				if (GV.TARGETED_ENEMY != null)
+				var distance:Number = GV.TARGETED_ENEMY.getDistance();
+				if (distance <= spellRange * 32) //if distance to enemy is less than spell range
 				{
-					if (onGlobalCooldown == false) //if global cooldown is not on
+					if (GV.PLAYER_MANA_CURRENT > 0) //if mana is not empty
 					{
-						if (GV.PLAYER_IS_CASTING == false) //if the player is not casting
+						if (onGlobalCooldown == false) //if global cooldown is not on
 						{
-							if (onCooldown == false) //if this spell is not on cooldown
+							if (GV.PLAYER_IS_CASTING == false) //if the player is not casting
 							{
-								if (FP.world.classCount(SpellCast) < 1) //if spellCast has not already been added. Error checking incase 2 spells are pressed at the same time
+								if (onCooldown == false) //if this spell is not on cooldown
 								{
-									if (Player.isMoving == false) //if the player is not moving
+									if (FP.world.classCount(SpellCast) < 1) //if spellCast has not already been added. Error checking incase 2 spells are pressed at the same time
 									{
-									trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
-									this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
-									}
-									else //if the player is moving
-									{
-										if (castTime == 0) //if the spell is instant cast
+										if (Player.isMoving == false) //if the player is not moving
 										{
-											trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
-											this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
+										trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
+										this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
 										}
-										else this.world.add (new HUDMessage("cant cast while moving")); // if the player is moving and the cast time is not 0
+										else //if the player is moving
+										{
+											if (castTime == 0) //if the spell is instant cast
+											{
+												trace ("spell pressed: " + this.spellName + " cast time: " + castTime + " spell damage: " + spellDamage);
+												this.world.add (new SpellCast(this as BaseSpell)); //create new spellcast, pass this spell
+											}
+											else this.world.add (new HUDMessage("cant cast while moving")); // if the player is moving and the cast time is not 0
+										}
 									}
+									else this.world.add (new HUDMessage("2 spells pressed at the same time... fail"));
 								}
-								else this.world.add (new HUDMessage("2 spells pressed at the same time... fail"));
+								else this.world.add (new HUDMessage("spell is on cooldown"));
 							}
-							else this.world.add (new HUDMessage("spell is on cooldown"));
+							else this.world.add (new HUDMessage("already casting"));
 						}
-						else this.world.add (new HUDMessage("already casting"));
+						else this.world.add (new HUDMessage("global cooldown"));
 					}
-					else this.world.add (new HUDMessage("global cooldown"));
+					else {GV.PLAYER_MANA_CURRENT = 0; this.world.add (new HUDMessage("out of mana"));}
 				}
-				else this.world.add (new HUDMessage("no target"));
+				else this.world.add (new HUDMessage("out of range"));
 			}
-		else {GV.PLAYER_MANA_CURRENT = 0; this.world.add (new HUDMessage("out of mana"));}
+		else this.world.add (new HUDMessage("no target"));
 		}
 		
 		public function AddGlobalCooldown():void //called from spellcast entity
@@ -189,6 +213,8 @@ package Spells
 		override public function update():void 
 		{
 			super.update();
+			
+			RangeCheck();
 			
 			if (collidePoint(x, y, world.mouseX - FP.camera.x, world.mouseY - FP.camera.y))
 			{

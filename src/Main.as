@@ -20,6 +20,7 @@ package
 			FP.world = new MainMenu;
 			//FP.console.enable();
 			
+			
 		}
 		
 		override public function init():void 

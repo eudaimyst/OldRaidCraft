@@ -18,6 +18,7 @@ package Spells
 			spellDamage = 5;
 			cooldownTime = 0;
 			manaCost = 5;
+			spellRange = 6;
 			
 			spellIconGraphic = GC.GFX_SPELL_ICON_DEATH;
 			spellIcon = new Image(spellIconGraphic);

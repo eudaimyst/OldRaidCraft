@@ -39,6 +39,8 @@ package Game
 			
 			this.x = locX;
 			this.y = locY;
+			
+			type = GC.TYPE_ENEMY;
 		}
 		
 		override public function added():void 
@@ -51,14 +53,13 @@ package Game
 			super.added();
 		}
 		
-		public function getDistance():void
+		public function getDistance():Number
 		{
 			distanceToPlayer = FP.distance(this.x + this.halfWidth, this.y + this.halfHeight, Player.xLoc, Player.yLoc);
-			if (distanceToPlayer < 224)
-			{
-				trace(distanceToPlayer);
-				moveTowards(Player.xLoc, Player.yLoc, FP.elapsed * currentEnemySpeed)
-			}
+			return distanceToPlayer;
+			//if (distanceToPlayer < 224)
+			
+			
 		}
 		
 		
@@ -66,6 +67,17 @@ package Game
 		{
 			super.update();
 			getDistance();
+			if (collide(GC.TYPE_ENEMY, x, y))
+			{
+				var myArray:Array = new Array;
+				
+				moveTowards(x - (Player.xLoc - x), y - (Player.yLoc - y), FP.elapsed * currentEnemySpeed)
+				trace("colliding with enemy");
+			}
+			else
+			{
+				moveTowards(Player.xLoc, Player.yLoc, FP.elapsed * currentEnemySpeed)
+			}
 			
 			if (collidePoint(x, y, world.mouseX, world.mouseY))
 			{
