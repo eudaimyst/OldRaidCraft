@@ -1,5 +1,6 @@
 package HUD 
 {
+	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Text;
 	
@@ -8,7 +9,7 @@ package HUD
 	 * ...
 	 * @author skipgamer
 	 */
-	public class HUDTimer extends HUDEntity 
+	public class HUDTimer extends Entity
 	{
 		static public var hudTimerNum:Number = 0;
 		public var hudTimerText:Text;

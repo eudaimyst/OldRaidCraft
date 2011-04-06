@@ -22,7 +22,7 @@ package Game
 		public var enemyMaxMana:Number;
 		public var enemyDead:Boolean;
 		public var enemyName:String;
-		public var defaultEnemySpeed:Number = 35;
+		public var defaultEnemySpeed:Number = 30;
 		public var currentEnemySpeed:Number;
 		
 		public var enemyImage:Image;
